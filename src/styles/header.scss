@@ -1,0 +1,21 @@
+.navbar {
+	display: flex;
+	flex-flow: column;
+	list-style: none;
+	align-items: flex-start;
+	justify-content: space-around;
+	margin: 2em 0 0 2em;
+	gap: 1.4em;
+	li {
+		width: 80%;
+		font-size: 1.2em;
+		font-weight: 600;
+		text-align: left;
+		cursor: pointer;
+		&:hover {
+			color: rgb(47, 112, 185);
+			border-radius: 2em;
+			// padding: 0.2em;
+		}
+	}
+}
