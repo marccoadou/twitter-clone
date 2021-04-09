@@ -11,4 +11,10 @@ body {
 
 .App {
 	height: 100vh;
+	display: flex;
+}
+
+.nopadding {
+	padding-left: 0;
+	padding-right: 0;
 }

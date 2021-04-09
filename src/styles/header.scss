@@ -1,11 +1,16 @@
+header {
+	float: right;
+	width: 15vw;
+}
+
 .navbar {
 	display: flex;
 	flex-flow: column;
 	list-style: none;
 	align-items: flex-start;
 	justify-content: space-around;
-	margin: 2em 0 0 2em;
-	gap: 1.4em;
+	margin: 0.5em 0 0 2em;
+	gap: 1.5em;
 	li {
 		width: 80%;
 		font-size: 1.2em;
@@ -15,7 +20,6 @@
 		&:hover {
 			color: rgb(47, 112, 185);
 			border-radius: 2em;
-			// padding: 0.2em;
 		}
 	}
 }

@@ -19,7 +19,7 @@ export const Profile = () => {
 					<h4>profile name</h4>
 					<small className="small-dark">@profileurl</small>
 					<p className="small-dark">
-						<i>some agenda icon</i> Joined date
+						<i className="far fa-calendar-alt"></i> Joined date
 					</p>
 					<div>
 						<p>54 Following</p>
