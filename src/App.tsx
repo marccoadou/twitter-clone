@@ -2,7 +2,7 @@ import React from "react";
 import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { AdditionalContent } from "./components/AdditionalContent";
-import { Container, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "./styles/index.scss";
 
 function App() {

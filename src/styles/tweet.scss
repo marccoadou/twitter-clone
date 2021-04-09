@@ -1,0 +1,24 @@
+.tweet {
+	padding: 1em;
+	width: 100%;
+	border: var(--border);
+	.tweet-user {
+		h6,
+		small {
+			margin: 0;
+		}
+		small {
+			opacity: 70%;
+		}
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		& button {
+			margin-left: auto;
+		}
+	}
+	.tweet-icons {
+		display: flex;
+		justify-content: space-between;
+	}
+}

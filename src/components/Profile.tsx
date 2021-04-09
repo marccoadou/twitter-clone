@@ -8,10 +8,6 @@ export const Profile = () => {
 	return (
 		<>
 			<div className="profile">
-				<div className="top-profile">
-					<h4>profile name</h4>
-					<small>number of tweets</small>
-				</div>
 				<div className="profile-pictures">
 					<Image src={DefaultCoverPic} className="cover-pic" />
 					<Image src={DefaultProfilePic} roundedCircle className="profile-pic" />
@@ -19,23 +15,23 @@ export const Profile = () => {
 						Set up profile
 					</Button>
 				</div>
-				<div>
+				<div className="profile-info">
 					<h4>profile name</h4>
 					<small className="small-dark">@profileurl</small>
 					<p className="small-dark">
 						<i>some agenda icon</i> Joined date
 					</p>
-				</div>
-				<div>
-					<p>54 Following</p>
-					<p>132 Followers</p>
+					<div>
+						<p>54 Following</p>
+						<p>132 Followers</p>
+					</div>
 				</div>
 
 				<div className="personal-category">
-					<Button>Tweets</Button>
-					<Button>Tweets & replies</Button>
-					<Button>Media</Button>
-					<Button>Likes</Button>
+					<button>Tweets</button>
+					<button>Tweets & replies</button>
+					<button>Media</button>
+					<button>Likes</button>
 				</div>
 			</div>
 		</>

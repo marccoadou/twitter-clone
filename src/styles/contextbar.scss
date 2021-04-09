@@ -1,0 +1,9 @@
+.top-profile {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	border: var(--border);
+	border-top: none;
+	border-bottom: none;
+	align-items: center;
+}
