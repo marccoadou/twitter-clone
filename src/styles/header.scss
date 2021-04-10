@@ -1,22 +1,33 @@
 header {
+	position: fixed;
 	float: right;
 	width: 15vw;
+	left: 18vw;
+	height: 100vh;
 }
 
 .navbar {
+	margin-top: 1em;
+	.logo {
+		font-size: 2em;
+	}
 	display: flex;
 	flex-flow: column;
 	list-style: none;
 	align-items: flex-start;
 	justify-content: space-around;
-	margin: 0.5em 0 0 2em;
-	gap: 1.5em;
+	gap: 2em;
+	height: 100%;
 	li {
 		width: 80%;
 		font-size: 1.2em;
 		font-weight: 600;
 		text-align: left;
 		cursor: pointer;
+		&:nth-child(11) {
+			margin-top: auto;
+			padding-bottom: 2em;
+		}
 		&:hover {
 			color: rgb(47, 112, 185);
 			border-radius: 2em;

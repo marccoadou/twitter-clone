@@ -8,7 +8,9 @@ export const Header = () => {
 		<>
 			<header>
 				<nav className="navbar">
-					<li>logo</li>
+					<li>
+						<i className="fas fa-crow logo"></i>
+					</li>
 					<li>
 						<i className="fas fa-home"></i> Home
 					</li>
@@ -33,8 +35,12 @@ export const Header = () => {
 					<li>
 						<i className="fas fa-ellipsis-h"></i> More
 					</li>
-					<Button>Tweet</Button>
-					<UserChanger />
+					<li>
+						<Button>Tweet</Button>
+					</li>
+					<li>
+						<UserChanger />
+					</li>
 				</nav>
 			</header>
 		</>

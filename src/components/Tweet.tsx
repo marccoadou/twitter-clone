@@ -6,7 +6,9 @@ import "../styles/tweet.scss";
 
 //Tweet takes as arguments ID && userID to go search DB for that tweet
 
-export const Tweet = () => {
+export const Tweet = ({ props }: any) => {
+	const tweet = props;
+	console.log(tweet.text);
 	return (
 		<>
 			<Media className="tweet">
@@ -20,19 +22,14 @@ export const Tweet = () => {
 				/>
 				<Media.Body>
 					<div className="tweet-user">
-						<h6>Username</h6>
-						<small>@userurl</small>
+						<h6>{tweet.user.screenName}</h6>
+						<small>@{tweet.user.id}</small>
 						<small>Apr 5</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
 						</a>
 					</div>
-					<p>
-						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-						ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
-						tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-						Donec lacinia congue felis in faucibus.
-					</p>
+					<p>{tweet.text}</p>
 					<div className="tweet-icons">
 						<a href="_" className="comment-icon">
 							<i className="fas fa-comment"></i>

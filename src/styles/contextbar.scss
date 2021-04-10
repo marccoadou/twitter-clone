@@ -1,9 +1,22 @@
 .top-profile {
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: space-around;
+	align-items: flex-start;
 	border: var(--border);
 	border-top: none;
 	border-bottom: none;
-	align-items: center;
+	padding: 0.5em;
+	h4 {
+		margin: 0;
+	}
+	i {
+		font-size: 2em;
+		margin-left: 0.3em;
+	}
+	.profile-context {
+		margin: 0;
+		margin-left: 2em;
+		display: flex;
+		flex-flow: column nowrap;
+	}
 }
