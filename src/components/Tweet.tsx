@@ -4,11 +4,7 @@ import DefaultUserIcon from "../img/default_profile_400x400.png";
 // import DropdownMenu from "react-overlays/DropdownMenu";
 import "../styles/tweet.scss";
 
-//Tweet takes as arguments ID && userID to go search DB for that tweet
-
-export const Tweet = ({ props }: any) => {
-	const tweet = props;
-	console.log(tweet.text);
+export const Tweet: React.FunctionComponent<TweetType> = ({ id, likes, text, user, userId }) => {
 	return (
 		<>
 			<Media className="tweet">
@@ -22,23 +18,26 @@ export const Tweet = ({ props }: any) => {
 				/>
 				<Media.Body>
 					<div className="tweet-user">
-						<h6>{tweet.user.screenName}</h6>
-						<small>@{tweet.user.id}</small>
+						<h6>{user.screenName}</h6>
+						<small>@{user.id}</small>
 						<small>Apr 5</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
 						</a>
 					</div>
-					<p>{tweet.text}</p>
+					<p>{text}</p>
 					<div className="tweet-icons">
 						<a href="_" className="comment-icon">
 							<i className="fas fa-comment"></i>
+							<span className="numbers">{likes}</span>
 						</a>
 						<a href="_" className="retweet-icon">
 							<i className="fas fa-exchange-alt"></i>
+							<span className="numbers">{likes}</span>
 						</a>
 						<a href="_" className="share-icon">
 							<i className="far fa-heart"></i>
+							<span className="numbers">{likes}</span>
 						</a>
 						<a href="_" className="share-icon">
 							<i className="fas fa-share"></i>

@@ -9,6 +9,6 @@ type TweetType = {
 	id: string;
 	text: string;
 	userId: string;
-	user: User;
+	user: UserType;
 	likes: number;
 };

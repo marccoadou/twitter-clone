@@ -20,12 +20,25 @@ const GET_TWEETS = gql`
 
 export const TweetFeed = () => {
 	const { loading, error, data } = useQuery(GET_TWEETS);
+	if (loading) {
+		return <>Loading</>;
+	}
+	if (error) {
+		return <>{error}</>;
+	}
 
+	const tweet: TweetType = data.tweets[0];
 	return (
 		<>
-			<p>hello</p>
-
-			{data ? <Tweet props={data.tweets[0]} /> : null}
+			{data ? (
+				<Tweet
+					id={tweet.id}
+					likes={tweet.likes}
+					text={tweet.text}
+					user={tweet.user}
+					userId={tweet.userId}
+				/>
+			) : null}
 			{/* <Tweet />
 			<Tweet />
 			<Tweet />
