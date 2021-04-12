@@ -1,17 +1,16 @@
 import * as admin from "firebase-admin";
+
+import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
 const serviceAccount = require("../service-account.json");
 
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
 });
 
-import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
-
 const typeDefs = gql`
-	# A twitter user
 	type User {
-		credentials: Credentials!
-		fullname: String!
+		credentials: Credentials
+		fullName: String!
 		userHandle: String!
 		userStats: UserStats!
 		tweets: [Tweet]!
@@ -41,6 +40,37 @@ const typeDefs = gql`
 		comments: Int!
 	}
 
+	input UserInput {
+		credentials: CredentialsInput!
+		fullName: String!
+		userHandle: String!
+		userStats: UserStatsInput!
+	}
+
+	input CredentialsInput {
+		email: String!
+		password: String!
+	}
+
+	input TweetInput {
+		id: ID!
+		text: String!
+		user: UserInput!
+		statistics: TweetStatsInput!
+	}
+
+	input UserStatsInput {
+		totalLikes: Int!
+		totalRetweets: Int!
+		totalComments: Int!
+	}
+
+	input TweetStatsInput {
+		likes: Int!
+		retweets: Int!
+		comments: Int!
+	}
+
 	type Query {
 		tweets: [Tweet]
 		user(id: String!): User
@@ -48,21 +78,14 @@ const typeDefs = gql`
 
 	type Mutation {
 		addUser(
-			credentials: Credentials!
-			fullname: String!
+			credentials: CredentialsInput!
+			fullName: String!
 			userHandle: String!
-			userStats: UserStats!
-			tweets: [Tweet]!
+			userStats: UserStatsInput!
 		): User
-		updateUser(
-			credentials: Credentials!
-			fullname: String!
-			userHandle: String!
-			userStats: UserStats!
-			tweets: [Tweet]!
-		): User
-		addTweet(id: ID!, text: String!, user: User!, statistics: TweetStats!): Tweet
-		updateTweet(id: ID!, text: String!, user: User!, statistics: TweetStats!): Tweet
+		updateUser(input: UserInput): User
+		addTweet(input: TweetInput): Tweet
+		updateTweet(input: TweetInput): Tweet
 	}
 `;
 
@@ -111,10 +134,15 @@ const resolvers = {
 			try {
 				const userAdded = await admin
 					.firestore()
-					.doc(`users/${args.username}`)
+					.collection("users")
+					.doc(`${args.userHandle}`)
 					.set(args)
-					.then(() => {
-						console.log(`${args.user} has been successfully added to the users`);
+					.then(async () => {
+						const results = await admin
+							.firestore()
+							.doc(`users/${args.userHandle}`)
+							.get();
+						return results.data();
 					});
 				return userAdded;
 			} catch (error) {

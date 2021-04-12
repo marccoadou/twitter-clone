@@ -2,6 +2,7 @@
 	"name": "functions",
 	"scripts": {
 		"build": "tsc",
+		"delete": "rm -rf lib/",
 		"serve": "npm run build && node lib/index.js",
 		"start": "node lib/index.js",
 		"deploy": "npm run build && gcloud app deploy"
@@ -9,6 +10,7 @@
 	"main": "lib/index.js",
 	"dependencies": {
 		"apollo-server": "^2.0.0-rc.8",
+		"apollo-server-types": "^0.7.0",
 		"bcrypt": "^5.0.1",
 		"firebase": "^8.3.3",
 		"firebase-admin": "^5.12.1",
