@@ -11,7 +11,7 @@
 	"dependencies": {
 		"apollo-server": "^2.0.0-rc.8",
 		"apollo-server-types": "^0.7.0",
-		"bcrypt": "^5.0.1",
+		"email-validator": "^2.0.4",
 		"firebase": "^8.3.3",
 		"firebase-admin": "^5.12.1",
 		"graphql": "^0.13.2",

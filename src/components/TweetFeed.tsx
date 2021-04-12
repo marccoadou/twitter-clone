@@ -8,11 +8,8 @@ const GET_TWEETS = gql`
 			id
 			text
 			user {
-				id
-				screenName
-				statusesCount
+				userHandle
 			}
-			userId
 			likes
 		}
 	}
@@ -31,13 +28,7 @@ export const TweetFeed = () => {
 	return (
 		<>
 			{data ? (
-				<Tweet
-					id={tweet.id}
-					likes={tweet.likes}
-					text={tweet.text}
-					user={tweet.user}
-					userId={tweet.userId}
-				/>
+				<Tweet id={tweet.id} stats={tweet.stats} text={tweet.text} user={tweet.user} />
 			) : null}
 			{/* <Tweet />
 			<Tweet />

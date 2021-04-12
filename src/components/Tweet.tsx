@@ -1,10 +1,9 @@
 import React from "react";
 import { Media, Image } from "react-bootstrap";
 import DefaultUserIcon from "../img/default_profile_400x400.png";
-// import DropdownMenu from "react-overlays/DropdownMenu";
 import "../styles/tweet.scss";
 
-export const Tweet: React.FunctionComponent<TweetType> = ({ id, likes, text, user, userId }) => {
+export const Tweet: React.FunctionComponent<TweetType> = ({ id, stats, text, user }) => {
 	return (
 		<>
 			<Media className="tweet">
@@ -18,8 +17,8 @@ export const Tweet: React.FunctionComponent<TweetType> = ({ id, likes, text, use
 				/>
 				<Media.Body>
 					<div className="tweet-user">
-						<h6>{user.screenName}</h6>
-						<small>@{user.id}</small>
+						<h6>{user.username}</h6>
+						<small>@{user.userHandle}</small>
 						<small>Apr 5</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
@@ -29,15 +28,15 @@ export const Tweet: React.FunctionComponent<TweetType> = ({ id, likes, text, use
 					<div className="tweet-icons">
 						<a href="_" className="comment-icon">
 							<i className="fas fa-comment"></i>
-							<span className="numbers">{likes}</span>
+							<span className="numbers">{stats.comments}</span>
 						</a>
 						<a href="_" className="retweet-icon">
 							<i className="fas fa-exchange-alt"></i>
-							<span className="numbers">{likes}</span>
+							<span className="numbers">{stats.retweets}</span>
 						</a>
 						<a href="_" className="share-icon">
 							<i className="far fa-heart"></i>
-							<span className="numbers">{likes}</span>
+							<span className="numbers">{stats.likes}</span>
 						</a>
 						<a href="_" className="share-icon">
 							<i className="fas fa-share"></i>

@@ -10,7 +10,7 @@ admin.initializeApp({
 const typeDefs = gql`
 	type User {
 		credentials: Credentials
-		fullName: String!
+		username: String!
 		userHandle: String!
 		userStats: UserStats!
 		tweets: [Tweet]!
@@ -79,7 +79,7 @@ const typeDefs = gql`
 	type Mutation {
 		addUser(
 			credentials: CredentialsInput!
-			fullName: String!
+			username: String!
 			userHandle: String!
 			userStats: UserStatsInput!
 		): User
