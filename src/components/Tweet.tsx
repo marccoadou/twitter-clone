@@ -6,7 +6,7 @@ import "../styles/tweet.scss";
 export const Tweet: React.FunctionComponent<TweetType> = ({ id, stats, text, user }) => {
 	return (
 		<>
-			<Media className="tweet">
+			{/* <Media className="tweet">
 				<Image
 					width={48}
 					height={48}
@@ -43,7 +43,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({ id, stats, text, use
 						</a>
 					</div>
 				</Media.Body>
-			</Media>
+			</Media> */}
 		</>
 	);
 };

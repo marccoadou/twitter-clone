@@ -55,7 +55,7 @@ const typeDefs = gql`
 	input TweetInput {
 		id: ID!
 		text: String!
-		user: UserInput!
+		userHandle: String!
 		statistics: TweetStatsInput!
 	}
 
@@ -72,8 +72,10 @@ const typeDefs = gql`
 	}
 
 	type Query {
+		users: [User]
 		tweets: [Tweet]
-		user(id: String!): User
+		user(username: String!): User
+		checkUser(email: String!, password: String!): [User]
 	}
 
 	type Mutation {
@@ -96,7 +98,7 @@ const resolvers = {
 				const userTweets = await admin
 					.firestore()
 					.collection("tweets")
-					.where("userId", "==", user.id)
+					.where("userHandle", "==", user.userHandle)
 					.get();
 				return userTweets.docs.map((tweet) => tweet.data());
 			} catch (error) {
@@ -124,6 +126,29 @@ const resolvers = {
 				const userDoc = await admin.firestore().doc(`users/${args.id}`).get();
 				const user = userDoc.data();
 				return user || new ValidationError("User ID not found");
+			} catch (error) {
+				throw new ApolloError(error);
+			}
+		},
+		async users() {
+			try {
+				const users = await admin.firestore().collection("users").get();
+				return users.docs.map((user) => user.data());
+			} catch (error) {
+				throw new ApolloError(error);
+			}
+		},
+		async checkUser(_, args) {
+			try {
+				const userDoc = await admin
+					.firestore()
+					.collection("users")
+					.where("credentials.email", "==", args.email)
+					.get();
+				return (
+					userDoc.docs.map((user) => user.data()) ||
+					new ValidationError("User with email and password not found")
+				);
 			} catch (error) {
 				throw new ApolloError(error);
 			}

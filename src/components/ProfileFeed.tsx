@@ -7,15 +7,20 @@ const GET_TWEETS = gql`
 		tweets {
 			id
 			text
+			userHandle
 			user {
-				userHandle
+				username
 			}
-			likes
+			stats {
+				likes
+				comments
+				retweets
+			}
 		}
 	}
 `;
 
-export const TweetFeed = () => {
+export const ProfileFeed = () => {
 	const { loading, error, data } = useQuery(GET_TWEETS);
 	if (loading) {
 		return <>Loading</>;
@@ -27,9 +32,15 @@ export const TweetFeed = () => {
 	const tweet: TweetType = data.tweets[0];
 	return (
 		<>
-			{data ? (
-				<Tweet id={tweet.id} stats={tweet.stats} text={tweet.text} user={tweet.user} />
-			) : null}
+			{/* {data ? (
+				<Tweet
+					id={tweet.id}
+					userHandle={tweet.userHandle}
+					stats={tweet.stats}
+					text={tweet.text}
+					user={tweet.user}
+				/>
+			) : null} */}
 			{/* <Tweet />
 			<Tweet />
 			<Tweet />

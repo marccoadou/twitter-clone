@@ -1,6 +1,6 @@
 import React from "react";
 import { Profile } from "./Profile";
-import { TweetFeed } from "./TweetFeed";
+import { ProfileFeed } from "./ProfileFeed";
 import { ContextBar } from "./ContextBar";
 // import { CreateTweet } from "./CreateTweet";
 
@@ -9,7 +9,7 @@ export const Main = () => {
 		<>
 			<ContextBar />
 			<Profile />
-			<TweetFeed />
+			<ProfileFeed />
 			{/* <CreateTweet /> */}
 		</>
 	);
