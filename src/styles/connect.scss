@@ -1,3 +1,25 @@
+.login-navbar {
+	position: fixed;
+	top: 0;
+	right: 3%;
+	width: 100vw;
+	form {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-end;
+		height: 10vh;
+		gap: 1em;
+		.form-group {
+			margin: 0;
+			padding: 0;
+		}
+		button {
+			height: 4vh;
+		}
+	}
+}
+
 .connect {
 	width: 100vw;
 	display: flex;

@@ -1,5 +1,5 @@
 type AppContextType = {
-	user: UserType;
+	user?: UserType;
 	isLoggedIn: boolean;
 };
 
@@ -16,7 +16,7 @@ type TweetType = {
 	text: string;
 	userHandle: string;
 	user?: UserType;
-	stats: TweetStatsType;
+	statistics: TweetStatsType;
 };
 
 type CredentialType = {

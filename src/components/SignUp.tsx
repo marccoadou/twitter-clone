@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import "../styles/connect.scss";
 import { gql, useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
+import { useEffect } from "react";
 var passwordHash = require("password-hash");
 
 const ADD_USER = gql`
@@ -35,7 +36,7 @@ const ADD_USER = gql`
 
 export const SignUp = () => {
 	// EmailValidator.validate("testmail.com"); // true
-	const [addUser, { data, error }] = useMutation<UserType>(ADD_USER);
+	const [addUser, { data }] = useMutation<UserType>(ADD_USER);
 	const handleSignUp = (e: any) => {
 		e.preventDefault();
 		if (EmailValidator.validate(e.target[2].value)) {
@@ -63,7 +64,9 @@ export const SignUp = () => {
 			});
 		}
 	};
-
+	useEffect(() => {
+		console.log(data);
+	}, [data]);
 	return (
 		<div className="connect">
 			<Form onSubmit={handleSignUp}>

@@ -1,6 +1,6 @@
 import * as admin from "firebase-admin";
-
 import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
+import * as passwordHash from "password-hash";
 const serviceAccount = require("../service-account.json");
 
 admin.initializeApp({
@@ -8,6 +8,12 @@ admin.initializeApp({
 });
 
 const typeDefs = gql`
+	type ValidUser {
+		isValidLogin: Boolean!
+		error: String
+		user: User
+	}
+
 	type User {
 		credentials: Credentials
 		username: String!
@@ -74,8 +80,8 @@ const typeDefs = gql`
 	type Query {
 		users: [User]
 		tweets: [Tweet]
-		user(username: String!): User
-		checkUser(email: String!, password: String!): [User]
+		user(userHandle: String!): User
+		checkUser(email: String!, password: String!): ValidUser
 	}
 
 	type Mutation {
@@ -95,6 +101,7 @@ const resolvers = {
 	User: {
 		async tweets(user) {
 			try {
+				console.log(user);
 				const userTweets = await admin
 					.firestore()
 					.collection("tweets")
@@ -109,7 +116,7 @@ const resolvers = {
 	Tweet: {
 		async user(tweet) {
 			try {
-				const tweetAuthor = await admin.firestore().doc(`users/${tweet.userId}`).get();
+				const tweetAuthor = await admin.firestore().doc(`users/${tweet.userHandle}`).get();
 				return tweetAuthor.data();
 			} catch (error) {
 				throw new ApolloError(error);
@@ -123,9 +130,9 @@ const resolvers = {
 		},
 		async user(_, args) {
 			try {
-				const userDoc = await admin.firestore().doc(`users/${args.id}`).get();
+				const userDoc = await admin.firestore().doc(`users/${args.userHandle}`).get();
 				const user = userDoc.data();
-				return user || new ValidationError("User ID not found");
+				return user || new ValidationError("User not found");
 			} catch (error) {
 				throw new ApolloError(error);
 			}
@@ -139,16 +146,23 @@ const resolvers = {
 			}
 		},
 		async checkUser(_, args) {
+			console.log(args);
 			try {
 				const userDoc = await admin
 					.firestore()
 					.collection("users")
 					.where("credentials.email", "==", args.email)
 					.get();
-				return (
-					userDoc.docs.map((user) => user.data()) ||
-					new ValidationError("User with email and password not found")
-				);
+				var user = {
+					isValidLogin: false,
+					error: "",
+					user: userDoc.docs.map((user) => user.data())[0],
+				};
+				let isValid = passwordHash.verify(args.password, user.user.credentials.password);
+				user.isValidLogin = isValid;
+				user.error = user.isValidLogin ? "" : "Wrong password or email";
+				console.log(user);
+				return user;
 			} catch (error) {
 				throw new ApolloError(error);
 			}
