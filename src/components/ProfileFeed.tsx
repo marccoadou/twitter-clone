@@ -24,9 +24,9 @@ const GET_TWEETS = gql`
 `;
 
 export const ProfileFeed = () => {
-	const { user } = useAppContext();
+	const { state } = useAppContext();
 	const { loading, error, data } = useQuery(GET_TWEETS, {
-		variables: { userHandle: user.userHandle },
+		variables: { userHandle: state.user.userHandle },
 	});
 	if (loading) {
 		return <>Loading</>;

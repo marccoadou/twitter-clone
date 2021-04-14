@@ -2,8 +2,11 @@ import React from "react";
 import "../styles/header.scss";
 import { UserChanger } from "./UserChanger";
 import { Button } from "react-bootstrap";
+import { useAppContext } from "../utils/AppContext";
 
 export const Header = () => {
+	const { dispatch } = useAppContext();
+
 	return (
 		<>
 			<header>
@@ -36,7 +39,12 @@ export const Header = () => {
 						<i className="fas fa-ellipsis-h"></i> More
 					</li>
 					<li>
-						<Button>Tweet</Button>
+						<Button
+							onClick={() => {
+								dispatch({ type: "TWEET_OPEN" });
+							}}>
+							Tweet
+						</Button>
 					</li>
 					<li>
 						<UserChanger />

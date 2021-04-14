@@ -1,4 +1,5 @@
-import React, { useState, createContext, useContext } from "react";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { createContext, useContext } from "react";
 
 export const defaultUser: UserType = {
 	userHandle: "",
@@ -15,17 +16,17 @@ export const defaultUser: UserType = {
 };
 
 export type AppContextContent = {
-	isLoggedIn: boolean;
-	setIsLoggedIn: (loggedIn: boolean) => void;
-	user: UserType;
-	setUser: (user: UserType) => void;
+	state: {
+		isLoggedIn: boolean;
+		user: UserType;
+		isCreatingTweet: boolean;
+	};
+	dispatch: React.Dispatch<AppContextContent | unknown>;
 };
 
 export const AppContext = createContext<AppContextContent>({
-	isLoggedIn: false,
-	setIsLoggedIn: () => {},
-	user: defaultUser,
-	setUser: () => {},
+	state: { isLoggedIn: false, isCreatingTweet: false, user: defaultUser },
+	dispatch: () => {},
 });
 
 export const useAppContext = () => useContext(AppContext);

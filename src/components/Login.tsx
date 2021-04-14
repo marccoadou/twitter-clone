@@ -11,13 +11,19 @@ const CHECK_USER = gql`
 			user {
 				username
 				userHandle
+				userStats {
+					totalLikes
+					totalRetweets
+					totalComments
+				}
 			}
 		}
 	}
 `;
 
 export const Login = () => {
-	const { isLoggedIn, setIsLoggedIn, user, setUser } = useAppContext();
+	const { state, dispatch } = useAppContext();
+	console.log(state);
 	const [error, setError] = useState("");
 	const [checkUser, { data }] = useLazyQuery(CHECK_USER);
 	const handleSignIn = (e: any) => {
@@ -30,13 +36,15 @@ export const Login = () => {
 	useEffect(() => {
 		console.log(data);
 		if (data && data.checkUser.isValidLogin !== false) {
-			setUser(data.checkUser.user);
-			setIsLoggedIn(true);
+			console.log(data.checkUser.user);
+			dispatch({ type: "SET_USER", value: data.checkUser.user });
+			dispatch({ type: "LOGIN" });
+			// localStorage.setItem("user", data.checkUser.user);
 		}
 		if (data && data.checkUser.error.length > 0) {
 			setError(data.checkUser.error);
 		}
-	}, [data, setIsLoggedIn, setUser, user]);
+	}, [data, dispatch]);
 	console.log(error);
 	return (
 		<div className="login-navbar">

@@ -3,8 +3,10 @@ import { Image, Button } from "react-bootstrap";
 import DefaultProfilePic from "../img/default_profile_400x400.png";
 import DefaultCoverPic from "../img/mountain.jpg";
 import "../styles/profile.scss";
+import { useAppContext } from "../utils/AppContext";
 
 export const Profile = () => {
+	const { state, dispatch } = useAppContext();
 	return (
 		<>
 			<div className="profile">
@@ -16,13 +18,13 @@ export const Profile = () => {
 					</Button>
 				</div>
 				<div className="profile-info">
-					<h4>profile name</h4>
-					<small className="small-dark">@profileurl</small>
+					<h4>{state.user.username}</h4>
+					<small className="small-dark">@{state.user.userHandle}</small>
 					<p className="small-dark">
 						<i className="far fa-calendar-alt"></i> Joined date
 					</p>
 					<div>
-						<p>54 Following</p>
+						<p>{} Following</p>
 						<p>132 Followers</p>
 					</div>
 				</div>
