@@ -13,7 +13,7 @@
 		"apollo-server-types": "^0.7.0",
 		"email-validator": "^2.0.4",
 		"firebase": "^8.3.3",
-		"firebase-admin": "^5.12.1",
+		"firebase-admin": "^9.6.0",
 		"graphql": "^0.13.2",
 		"graphql-tag": "^2.9.2",
 		"npm": "^7.9.0",
