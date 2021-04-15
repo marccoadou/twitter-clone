@@ -3,27 +3,45 @@ import DefaultUserIcon from "../img/default_profile_400x400.png";
 import { Button, Form, Image } from "react-bootstrap";
 import "../styles/create-tweet.scss";
 import { useAppContext } from "../utils/AppContext";
+import { gql, useMutation } from "@apollo/client";
+
+const ADD_TWEET = gql`
+	mutation addTweet($text: String!, $userHandle: String!) {
+		addTweet(text: $text, userHandle: $userHandle)
+	}
+`;
 
 export const CreateTweet = () => {
-	const { dispatch } = useAppContext();
+	const { state, dispatch } = useAppContext();
+	const [tweetText, setTweetText] = useState("");
 	const [tweetLength, setTweetLength] = useState(0);
+	const [addTweet, { data }] = useMutation<TweetType>(ADD_TWEET);
+
 	const handleTweetAdd = (e: any) => {
 		e.preventDefault();
-		e.target[0].value = "";
+		setTweetText("");
+		setTweetLength(0);
+		addTweet({
+			variables: {
+				text: tweetText,
+				userHandle: state.user.userHandle,
+			},
+		});
 	};
 	const handleTweetLength = (e: any) => {
+		setTweetText(e.target.value);
 		setTweetLength(e.target.value.length);
+	};
+
+	const closeTweet = () => {
+		dispatch({ type: "TWEET_CLOSE" });
 	};
 
 	return (
 		<div className="fullscreen">
 			<div className="create-tweet-container">
 				<div className="create-tweet-border">
-					<div
-						className="close-create-tweet"
-						onClick={() => {
-							dispatch({ type: "TWEET_CLOSE" });
-						}}>
+					<div className="close-create-tweet" onClick={closeTweet}>
 						<i className="fas fa-times"></i>
 					</div>
 					<div className="divider-h"></div>
@@ -50,6 +68,7 @@ export const CreateTweet = () => {
 										height: "8vw",
 									}}
 									maxLength={280}
+									value={tweetText}
 									onChange={handleTweetLength}
 									placeholder="What's popping?"
 								/>

@@ -17,7 +17,8 @@
 		"graphql": "^0.13.2",
 		"graphql-tag": "^2.9.2",
 		"npm": "^7.9.0",
-		"password-hash": "^1.2.2"
+		"password-hash": "^1.2.2",
+		"uniqid": "^5.3.0"
 	},
 	"devDependencies": {
 		"@types/password-hash": "^1.2.20",

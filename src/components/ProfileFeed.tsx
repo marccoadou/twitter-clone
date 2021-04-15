@@ -32,6 +32,7 @@ export const ProfileFeed = () => {
 	if (loading) return <>Loading...</>;
 	if (error) return <>{error.message}</>;
 
+	console.log(data);
 	return (
 		<>
 			{data.user.tweets.map((tweet: TweetType, index: number) => {

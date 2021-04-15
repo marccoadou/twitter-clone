@@ -7,6 +7,9 @@ import { useAppContext } from "../utils/AppContext";
 export const Header = () => {
 	const { dispatch } = useAppContext();
 
+	const openTweetCreator = () => {
+		dispatch({ type: "TWEET_OPEN" });
+	};
 	return (
 		<>
 			<header>
@@ -39,12 +42,7 @@ export const Header = () => {
 						<i className="fas fa-ellipsis-h"></i> More
 					</li>
 					<li>
-						<Button
-							onClick={() => {
-								dispatch({ type: "TWEET_OPEN" });
-							}}>
-							Tweet
-						</Button>
+						<Button onClick={openTweetCreator}>Tweet</Button>
 					</li>
 					<li>
 						<UserChanger />
