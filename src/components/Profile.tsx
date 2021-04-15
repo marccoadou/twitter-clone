@@ -6,7 +6,7 @@ import "../styles/profile.scss";
 import { useAppContext } from "../utils/AppContext";
 
 export const Profile = () => {
-	const { state, dispatch } = useAppContext();
+	const { state } = useAppContext();
 	return (
 		<>
 			<div className="profile">

@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
 import * as passwordHash from "password-hash";
+
 const serviceAccount = require("../service-account.json");
 
 admin.initializeApp({
@@ -58,13 +59,6 @@ const typeDefs = gql`
 		password: String!
 	}
 
-	input TweetInput {
-		id: ID!
-		text: String!
-		userHandle: String!
-		statistics: TweetStatsInput!
-	}
-
 	input UserStatsInput {
 		totalLikes: Int!
 		totalRetweets: Int!
@@ -92,8 +86,8 @@ const typeDefs = gql`
 			userStats: UserStatsInput!
 		): User
 		updateUser(input: UserInput): User
-		addTweet(input: TweetInput): Tweet
-		updateTweet(input: TweetInput): Tweet
+		addTweet(id: ID!, text: String!, userHandle: String!): Boolean
+		# updateTweet(input: TweetInput): Tweet
 	}
 `;
 
@@ -171,19 +165,36 @@ const resolvers = {
 	Mutation: {
 		async addUser(_, args) {
 			try {
+				if (args.credentials.password) {
+					const hashed = passwordHash.generate(args.credentials.password);
+					args.credentials.password = hashed;
+				}
 				const userAdded = await admin
 					.firestore()
 					.collection("users")
 					.doc(`${args.userHandle}`)
 					.set(args)
 					.then(async () => {
-						const results = await admin
-							.firestore()
-							.doc(`users/${args.userHandle}`)
-							.get();
+						const results = await admin.firestore().doc(`users/${args.userHandle}`).get();
 						return results.data();
 					});
 				return userAdded;
+			} catch (error) {
+				throw new ApolloError(error);
+			}
+		},
+		async addTweet(_, args) {
+			try {
+				const newTweet = await admin
+					.firestore()
+					.collection("tweets")
+					.doc(`${args.id}`)
+					.set(args)
+					.then(async () => {
+						const tweet = await admin.firestore().doc(`tweets/${args.id}`).get();
+						return tweet.data();
+					});
+				return newTweet;
 			} catch (error) {
 				throw new ApolloError(error);
 			}

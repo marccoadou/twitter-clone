@@ -25,37 +25,27 @@ const GET_TWEETS = gql`
 
 export const ProfileFeed = () => {
 	const { state } = useAppContext();
+
 	const { loading, error, data } = useQuery(GET_TWEETS, {
 		variables: { userHandle: state.user.userHandle },
 	});
-	if (loading) {
-		return <>Loading</>;
-	}
-	if (error) {
-		return <></>;
-	}
+	if (loading) return <>Loading...</>;
+	if (error) return <>{error.message}</>;
 
-	const tweets: [TweetType] = data.user.tweets;
-	console.log(tweets);
 	return (
 		<>
-			{tweets ? (
-				tweets.map((tweet: any, index: any) => {
-					console.log(tweet);
-					return (
-						<Tweet
-							id={tweet.id}
-							userHandle={tweet.userHandle}
-							statistics={tweet.statistics}
-							text={tweet.text}
-							user={tweet.user}
-							key={index}
-						/>
-					);
-				})
-			) : (
-				<p>nothing?</p>
-			)}
+			{data.user.tweets.map((tweet: TweetType, index: number) => {
+				return (
+					<Tweet
+						id={tweet.id}
+						userHandle={tweet.userHandle}
+						statistics={tweet.statistics}
+						text={tweet.text}
+						user={tweet.user}
+						key={index}
+					/>
+				);
+			})}
 		</>
 	);
 };

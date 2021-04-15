@@ -2,12 +2,24 @@ import React from "react";
 import { Profile } from "./Profile";
 import { ProfileFeed } from "./ProfileFeed";
 import { ContextBar } from "./ContextBar";
+import { Header } from "./Header";
+import { Col } from "react-bootstrap";
+import { AdditionalContent } from "./AdditionalContent";
+
 export const Main = () => {
 	return (
 		<>
-			<ContextBar />
-			<Profile />
-			<ProfileFeed />
+			<Col lg={4} className="nopadding">
+				<Header />
+			</Col>
+			<Col lg={4} className="nopadding">
+				<ContextBar />
+				<Profile />
+				<ProfileFeed />
+			</Col>
+			<Col lg={3} className="nopadding">
+				<AdditionalContent />
+			</Col>
 		</>
 	);
 };
