@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { gql, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useAppContext } from "../utils/AppContext";
-
-const CHECK_USER = gql`
-	query checkUser($email: String!, $password: String!) {
-		checkUser(email: $email, password: $password) {
-			isValidLogin
-			error
-			user {
-				username
-				userHandle
-				userStats {
-					totalLikes
-					totalRetweets
-					totalComments
-				}
-			}
-		}
-	}
-`;
+import { CHECK_USER } from "../utils/ApolloRequest";
 
 export const Login = () => {
-	const { state, dispatch } = useAppContext();
+	const { dispatch } = useAppContext();
 
 	const [error, setError] = useState("");
 	const [checkUser, { data }] = useLazyQuery(CHECK_USER);

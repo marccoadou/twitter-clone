@@ -1,28 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tweet } from "./Tweet";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useAppContext } from "../utils/AppContext";
-
-const GET_TWEETS = gql`
-	query getUser($userHandle: String!) {
-		user(userHandle: $userHandle) {
-			tweets {
-				id
-				text
-				user {
-					username
-					userHandle
-				}
-				statistics {
-					likes
-					comments
-					retweets
-				}
-			}
-		}
-	}
-`;
-
+import { GET_TWEETS } from "../utils/ApolloRequest";
 export const ProfileFeed = () => {
 	const { state } = useAppContext();
 

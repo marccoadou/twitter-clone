@@ -3,7 +3,7 @@ import "./styles/index.scss";
 import React from "react";
 import { Col } from "react-bootstrap";
 import { AdditionalContent } from "./components/AdditionalContent";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import { Main } from "./components/Main";
 import { useAppContext } from "./utils/AppContext";
@@ -22,10 +22,11 @@ export const App = () => {
 		}
 	}
 
+	console.log(state.isLoggedIn);
 	return (
 		<Router>
 			<Switch>
-				<Route path="/" exact>
+				<Route exact path="/">
 					{state.isLoggedIn ? <Main /> : <Connect />}
 					{state.isCreatingTweet ? <CreateTweet /> : null}
 				</Route>

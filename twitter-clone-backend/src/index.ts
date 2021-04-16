@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
 import * as passwordHash from "password-hash";
-import * as uniqid from "uniqid";
+import uniqid = require("uniqid");
 
 const serviceAccount = require("../service-account.json");
 
@@ -44,8 +44,12 @@ const typeDefs = gql`
 
 	type TweetStats {
 		likes: Int!
+		likesList: [User]
 		retweets: Int!
-		comments: Int!
+		retweetsList: [User]
+		commentsNbr: Int!
+		comments: [Tweet]
+		commentsList: [User]
 	}
 
 	input UserInput {
@@ -188,9 +192,13 @@ const resolvers = {
 			try {
 				args.id = uniqid();
 				args.statistics = {
-					comments: 0,
 					likes: 0,
+					likesList: [],
 					retweets: 0,
+					retweetsList: [],
+					commentsNbr: 0,
+					comments: [],
+					commentsList: [],
 				};
 				const newTweet = await admin
 					.firestore()

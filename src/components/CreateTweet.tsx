@@ -3,19 +3,14 @@ import DefaultUserIcon from "../img/default_profile_400x400.png";
 import { Button, Form, Image } from "react-bootstrap";
 import "../styles/create-tweet.scss";
 import { useAppContext } from "../utils/AppContext";
-import { gql, useMutation } from "@apollo/client";
-
-const ADD_TWEET = gql`
-	mutation addTweet($text: String!, $userHandle: String!) {
-		addTweet(text: $text, userHandle: $userHandle)
-	}
-`;
+import { useMutation } from "@apollo/client";
+import { ADD_TWEET } from "../utils/ApolloRequest";
 
 export const CreateTweet = () => {
 	const { state, dispatch } = useAppContext();
 	const [tweetText, setTweetText] = useState("");
 	const [tweetLength, setTweetLength] = useState(0);
-	const [addTweet, { data }] = useMutation<TweetType>(ADD_TWEET);
+	const [addTweet] = useMutation<TweetType>(ADD_TWEET);
 
 	const handleTweetAdd = (e: any) => {
 		e.preventDefault();
@@ -27,6 +22,7 @@ export const CreateTweet = () => {
 				userHandle: state.user.userHandle,
 			},
 		});
+		dispatch({ type: "TWEET_CLOSE" });
 	};
 	const handleTweetLength = (e: any) => {
 		setTweetText(e.target.value);

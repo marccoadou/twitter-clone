@@ -1,11 +1,15 @@
-.top-profile {
+.context-bar {
+	position: fixed;
+	background-color: var(--background-color);
 	display: flex;
+	width: 33.3333%;
 	flex-flow: row nowrap;
 	align-items: flex-start;
 	border: var(--border);
 	border-top: none;
 	border-bottom: none;
 	padding: 0.5em;
+	z-index: 99;
 	h4 {
 		margin: 0;
 	}

@@ -18,6 +18,7 @@ function AppContextWrapper() {
 	const [state, dispatch] = useImmerReducer<AppContextType>(appReducer, {
 		isCreatingTweet: false,
 		isLoggedIn: false,
+		refreshFeed: false,
 		user: defaultUser,
 	});
 

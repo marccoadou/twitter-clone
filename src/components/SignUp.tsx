@@ -2,41 +2,13 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 import "../styles/connect.scss";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
-import { useEffect } from "react";
-var passwordHash = require("password-hash");
 
-const ADD_USER = gql`
-	mutation addUser(
-		$credentials: CredentialsInput!
-		$username: String!
-		$userHandle: String!
-		$userStats: UserStatsInput!
-	) {
-		addUser(
-			credentials: $credentials
-			username: $username
-			userHandle: $userHandle
-			userStats: $userStats
-		) {
-			credentials {
-				email
-				password
-			}
-			username
-			userHandle
-			userStats {
-				totalLikes
-				totalRetweets
-				totalComments
-			}
-		}
-	}
-`;
+import { ADD_USER } from "../utils/ApolloRequest";
 
 export const SignUp = () => {
-	const [addUser, { data }] = useMutation<UserType>(ADD_USER);
+	const [addUser] = useMutation<UserType>(ADD_USER);
 	const [username, setUsername] = useState("");
 	const [userHandle, setUserHandle] = useState("");
 	const [password, setPassword] = useState("");
