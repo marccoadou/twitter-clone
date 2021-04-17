@@ -1,26 +1,29 @@
+import "../styles/main.scss";
 import React from "react";
 import { Profile } from "./Profile";
 import { ProfileFeed } from "./ProfileFeed";
 import { ContextBar } from "./ContextBar";
 import { Header } from "./Header";
-import { Col } from "react-bootstrap";
 import { AdditionalContent } from "./AdditionalContent";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { CreateTweet } from "./CreateTweet";
+import { useAppContext } from "../utils/AppContext";
 
-export const Main = () => {
+export const Main: React.FC = () => {
+	const { state } = useAppContext();
 	return (
-		<>
-			<Col lg={4} className="nopadding">
+		<div className="main-columns">
+			<div>
 				<Header />
-			</Col>
-			<Col lg={4} className="nopadding">
+			</div>
+			<div>
 				<ContextBar />
 				<Profile />
 				<ProfileFeed />
-			</Col>
-			<Col lg={3} className="nopadding">
+			</div>
+			<div>
 				<AdditionalContent />
-			</Col>
-		</>
+			</div>
+			{state.isCreatingTweet ? <CreateTweet /> : null}
+		</div>
 	);
 };

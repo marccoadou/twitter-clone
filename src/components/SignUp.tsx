@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/connect.scss";
 import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
@@ -48,6 +48,7 @@ export const SignUp = () => {
 
 	return (
 		<div className="connect">
+			<h2>Sign up for an account</h2>
 			<Form onSubmit={handleSignUp}>
 				<Form.Group controlId="formBasicFullName">
 					<Form.Label>Full Name</Form.Label>
@@ -101,6 +102,7 @@ export const SignUp = () => {
 					Submit
 				</Button>
 			</Form>
+			<Link to="/login">If you already have an account, click here</Link>
 		</div>
 	);
 };

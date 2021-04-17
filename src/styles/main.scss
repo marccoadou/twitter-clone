@@ -1,0 +1,9 @@
+.main-columns {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+	width: 100%;
+}
+.main-columns > div {
+	width: 100%;
+}

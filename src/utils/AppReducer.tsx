@@ -15,6 +15,9 @@ export const appReducer = (state: AppContextType, action: { type: any; value: Us
 		case "TWEET_CLOSE":
 			state.isCreatingTweet = false;
 			break;
+		case "REFRESH_FEED":
+			state.refreshFeed = true;
+			break;
 		default:
 			return state;
 	}

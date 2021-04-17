@@ -3,8 +3,10 @@ import "../styles/header.scss";
 import { UserChanger } from "./UserChanger";
 import { Button } from "react-bootstrap";
 import { useAppContext } from "../utils/AppContext";
+import { RouteComponentProps, withRouter } from "react-router";
+interface Props extends RouteComponentProps {}
 
-export const Header = () => {
+export const Header = withRouter(({ history }) => {
 	const { dispatch } = useAppContext();
 
 	const openTweetCreator = () => {
@@ -51,4 +53,4 @@ export const Header = () => {
 			</header>
 		</>
 	);
-};
+});

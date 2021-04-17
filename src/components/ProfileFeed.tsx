@@ -5,14 +5,12 @@ import { useAppContext } from "../utils/AppContext";
 import { GET_TWEETS } from "../utils/ApolloRequest";
 export const ProfileFeed = () => {
 	const { state } = useAppContext();
-
 	const { loading, error, data } = useQuery(GET_TWEETS, {
 		variables: { userHandle: state.user.userHandle },
 	});
 	if (loading) return <>Loading...</>;
 	if (error) return <>{error.message}</>;
 
-	console.log(data);
 	return (
 		<>
 			{data.user.tweets.map((tweet: TweetType, index: number) => {
