@@ -33,7 +33,23 @@ export const GET_TWEETS = gql`
 		}
 	}
 `;
-
+export const GET_USER_INFO = gql`
+	query getUser($userHandle: String!) {
+		user(userHandle: $userHandle) {
+			username
+			userHandle
+			credentials {
+				email
+				password
+			}
+			userStats {
+				totalLikes
+				totalRetweets
+				totalComments
+			}
+		}
+	}
+`;
 export const ADD_TWEET = gql`
 	mutation addTweet($text: String!, $userHandle: String!) {
 		addTweet(text: $text, userHandle: $userHandle) {
@@ -41,6 +57,17 @@ export const ADD_TWEET = gql`
 				userHandle
 			}
 			text
+		}
+	}
+`;
+
+export const ADD_LIKE = gql`
+	mutation addLike($userHandle: String, $id: String!) {
+		addLike(userHandle: $userHandle, id: $id) {
+			id
+			user {
+				userHandle
+			}
 		}
 	}
 `;

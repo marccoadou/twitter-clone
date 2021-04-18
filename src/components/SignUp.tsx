@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "../styles/connect.scss";
 import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
 
 import { ADD_USER } from "../utils/ApolloRequest";
 
-export const SignUp = () => {
-	const [addUser] = useMutation<UserType>(ADD_USER);
+export const SignUp = withRouter(({ history }) => {
+	const [addUser, { data, error, loading }] = useMutation(ADD_USER);
 	const [username, setUsername] = useState("");
 	const [userHandle, setUserHandle] = useState("");
 	const [password, setPassword] = useState("");
@@ -45,7 +45,12 @@ export const SignUp = () => {
 	// console.log(
 	// 	`username: ${username}\nemail: ${email}\nuserHandle: ${userHandle}\npassword: ${password}`
 	// );
-
+	useEffect(() => {
+		console.log(data);
+		if (data?.addUser.credentials?.email) {
+			history.push("/login");
+		}
+	}, [data, email, history]);
 	return (
 		<div className="connect">
 			<h2>Sign up for an account</h2>
@@ -56,6 +61,7 @@ export const SignUp = () => {
 						type="userHandle"
 						placeholder="Enter your full name"
 						value={username}
+						required
 						onChange={(e) => {
 							setUsername(e.target.value);
 						}}
@@ -67,6 +73,7 @@ export const SignUp = () => {
 						type="userHandle"
 						placeholder="Enter username"
 						value={userHandle}
+						required
 						onChange={(e) => {
 							setUserHandle(e.target.value.split(" ").join(""));
 						}}
@@ -79,6 +86,7 @@ export const SignUp = () => {
 						type="email"
 						placeholder="Enter email"
 						value={email}
+						required
 						onChange={(e) => {
 							setEmail(e.target.value);
 						}}
@@ -93,6 +101,7 @@ export const SignUp = () => {
 						type="password"
 						placeholder="Password"
 						value={password}
+						required
 						onChange={(e) => {
 							setPassword(e.target.value);
 						}}
@@ -105,4 +114,4 @@ export const SignUp = () => {
 			<Link to="/login">If you already have an account, click here</Link>
 		</div>
 	);
-};
+});

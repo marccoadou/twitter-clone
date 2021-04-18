@@ -1,8 +1,8 @@
 .context-bar {
-	position: fixed;
+	position: sticky;
 	background-color: var(--background-color);
 	display: flex;
-	width: 33.3333%;
+	// width: 33.3333%;
 	flex-flow: row nowrap;
 	align-items: flex-start;
 	border: var(--border);

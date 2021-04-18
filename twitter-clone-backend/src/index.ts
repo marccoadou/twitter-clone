@@ -93,6 +93,7 @@ const typeDefs = gql`
 		): User
 		updateUser(input: UserInput): User
 		addTweet(text: String!, userHandle: String!): Tweet
+		addLike(userHandle: String!): Tweet
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;
@@ -189,8 +190,8 @@ const resolvers = {
 					.doc(`${args.userHandle}`)
 					.set(args)
 					.then(async () => {
-						const results = await admin.firestore().doc(`users/${args.userHandle}`).get();
-						return results.data();
+						const returnUser = await admin.firestore().doc(`users/${args.userHandle}`).get();
+						return returnUser.data();
 					});
 				return userAdded;
 			} catch (error) {
@@ -220,6 +221,22 @@ const resolvers = {
 						return tweet.data();
 					});
 				return newTweet;
+			} catch (error) {
+				throw new ApolloError(error);
+			}
+		},
+		async addLike(_, args) {
+			try {
+				const stats = await admin
+					.firestore()
+					.collection("tweets")
+					.doc(`${args.id}`)
+					.update({
+						"statistics.likes": admin.firestore.FieldValue.increment(1),
+						likesList: admin.firestore.FieldValue.arrayUnion(args.userHandle),
+					});
+				const tweet = await admin.firestore().doc(`tweets/${args.id}`).get();
+				return tweet;
 			} catch (error) {
 				throw new ApolloError(error);
 			}

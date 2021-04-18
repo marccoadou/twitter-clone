@@ -4,9 +4,15 @@ import DefaultCoverPic from "../img/mountain.jpg";
 import { Button, Image } from "react-bootstrap";
 import "../styles/profile.scss";
 import { useAppContext } from "../utils/AppContext";
+import { useParams } from "react-router-dom";
+import { GET_USER_INFO } from "../utils/ApolloRequest";
+import { useQuery } from "@apollo/client";
 
 export const Profile = () => {
 	const { state } = useAppContext();
+	let { id } = useParams<{ id: string }>();
+	const { data, error, loading } = useQuery(GET_USER_INFO, { variables: { userHandle: id } });
+	console.log(data);
 	return (
 		<>
 			<div className="profile">
@@ -18,14 +24,14 @@ export const Profile = () => {
 					</Button>
 				</div>
 				<div className="profile-info">
-					<h4>{state.user.username}</h4>
-					<small className="small-dark">@{state.user.userHandle}</small>
+					<h4>{data?.user?.username}</h4>
+					<small className="small-dark">@{data?.user?.userHandle}</small>
 					<p className="small-dark">
 						<i className="far fa-calendar-alt"></i> Joined date
 					</p>
 					<div>
-						<p>{} Following</p>
-						<p>132 Followers</p>
+						<p>{}12 Following</p>
+						<p>{}12 Followers</p>
 					</div>
 				</div>
 

@@ -6,6 +6,7 @@ import { Login } from "./components/Login";
 import { SignUp } from "./components/SignUp";
 import { useEffect } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { NotFound } from "./components/NotFound";
 
 export const App = () => {
 	const { state, dispatch } = useAppContext();
@@ -25,11 +26,12 @@ export const App = () => {
 		<Router>
 			<Switch>
 				<Route path="/" exact>
-					<Redirect to="/signup" />
+					<Redirect to="/home" />
 				</Route>
-				<PrivateRoute component={Main} exact={true} path="/home" redirectPath="/login" />
+				<PrivateRoute component={Main} exact={true} path="/profile/:id" redirectPath="/login" />
 				<Route path="/signup" exact component={SignUp} />
-				<Route path="/login" component={Login} />
+				<Route path="/login" exact component={Login} />
+				<Route path="/" component={NotFound} />
 			</Switch>
 		</Router>
 	);
