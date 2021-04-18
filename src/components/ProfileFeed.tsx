@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tweet } from "./Tweet";
 import { useQuery } from "@apollo/client";
 import { useAppContext } from "../utils/AppContext";
 import { GET_TWEETS } from "../utils/ApolloRequest";
 export const ProfileFeed = () => {
 	const { state } = useAppContext();
-	const { loading, error, data } = useQuery(GET_TWEETS, {
+	const { loading, error, data, refetch } = useQuery(GET_TWEETS, {
 		variables: { userHandle: state.user.userHandle },
 	});
+	useEffect(() => {
+		refetch();
+	}, [refetch, state.refreshFeed]);
 	if (loading) return <>Loading...</>;
 	if (error) return <>{error.message}</>;
 

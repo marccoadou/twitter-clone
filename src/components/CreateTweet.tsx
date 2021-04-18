@@ -23,6 +23,7 @@ export const CreateTweet = () => {
 			},
 		});
 		dispatch({ type: "TWEET_CLOSE" });
+		dispatch({ type: "REFRESH_FEED_TOGGLE" });
 	};
 	const handleTweetLength = (e: any) => {
 		setTweetText(e.target.value);

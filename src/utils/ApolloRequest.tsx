@@ -6,6 +6,7 @@ export const GET_TWEETS = gql`
 			tweets {
 				id
 				text
+				createdAt
 				user {
 					username
 					userHandle
@@ -36,6 +37,9 @@ export const GET_TWEETS = gql`
 export const ADD_TWEET = gql`
 	mutation addTweet($text: String!, $userHandle: String!) {
 		addTweet(text: $text, userHandle: $userHandle) {
+			user {
+				userHandle
+			}
 			text
 		}
 	}

@@ -34,6 +34,7 @@ const typeDefs = gql`
 		text: String!
 		user: User!
 		statistics: TweetStats!
+		createdAt: String!
 	}
 
 	type UserStats {
@@ -91,7 +92,7 @@ const typeDefs = gql`
 			userStats: UserStatsInput!
 		): User
 		updateUser(input: UserInput): User
-		addTweet(text: String!, userHandle: String!): Boolean
+		addTweet(text: String!, userHandle: String!): Tweet
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;
@@ -106,7 +107,15 @@ const resolvers = {
 					.collection("tweets")
 					.where("userHandle", "==", user.userHandle)
 					.get();
-				return userTweets.docs.map((tweet) => tweet.data());
+				const tweets = userTweets.docs.map((tweet) => tweet.data());
+				tweets.forEach((tweet) => {
+					tweet.createdAt = tweet.createdAt.toDate().toLocaleTimeString();
+				});
+				console.log(tweets);
+				tweets.sort((a, b) => {
+					return b.createdAt - a.createdAt;
+				});
+				return tweets.reverse();
 			} catch (error) {
 				throw new ApolloError(error);
 			}
@@ -191,6 +200,7 @@ const resolvers = {
 		async addTweet(_, args) {
 			try {
 				args.id = uniqid();
+				args.createdAt = admin.firestore.Timestamp.now();
 				args.statistics = {
 					likes: 0,
 					likesList: [],

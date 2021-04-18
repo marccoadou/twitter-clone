@@ -20,12 +20,13 @@ export type AppContextContent = {
 		isLoggedIn: boolean;
 		user: UserType;
 		isCreatingTweet: boolean;
+		refreshFeed: boolean;
 	};
 	dispatch: React.Dispatch<AppContextContent | unknown>;
 };
 
 export const AppContext = createContext<AppContextContent>({
-	state: { isLoggedIn: false, isCreatingTweet: false, user: defaultUser },
+	state: { isLoggedIn: false, isCreatingTweet: false, user: defaultUser, refreshFeed: false },
 	dispatch: () => {},
 });
 
