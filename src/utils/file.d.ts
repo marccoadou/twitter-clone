@@ -19,6 +19,7 @@ type TweetType = {
 	userHandle: string;
 	user?: UserType;
 	statistics: TweetStatsType;
+	createdAt: string;
 };
 
 type CredentialType = {

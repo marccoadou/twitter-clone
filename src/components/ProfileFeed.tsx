@@ -18,6 +18,7 @@ export const ProfileFeed: React.FC<Props> = ({ user }) => {
 	}, [refetch, state.refreshFeed]);
 	if (loading) return <>Loading...</>;
 	if (error) return <>{error.message}</>;
+	console.log(data);
 
 	return (
 		<>
@@ -30,6 +31,7 @@ export const ProfileFeed: React.FC<Props> = ({ user }) => {
 						text={tweet.text}
 						user={tweet.user}
 						key={index}
+						createdAt={tweet.createdAt}
 					/>
 				);
 			})}

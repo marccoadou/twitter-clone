@@ -17,7 +17,6 @@ export const Main: React.FC = () => {
 	const { data, error, loading } = useQuery(GET_USER_INFO, {
 		variables: { userHandle: url.slice(9) },
 	});
-
 	return (
 		<div className="main-columns">
 			<div>

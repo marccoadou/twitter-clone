@@ -12,6 +12,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	statistics,
 	text,
 	user,
+	createdAt,
 }) => {
 	const { state } = useAppContext();
 	const [addLikeQuery, { data }] = useLazyQuery(ADD_LIKE);
@@ -33,7 +34,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 					<div className="tweet-user">
 						<h6>{user?.username}</h6>
 						<small>@{user?.userHandle}</small>
-						<small>Apr 5</small>
+						<small>{createdAt}</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
 						</a>

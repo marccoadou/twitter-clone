@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
-import "../styles/connect.scss";
+import "../../styles/connect.scss";
 import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
 
-import { ADD_USER } from "../utils/ApolloRequest";
+import { ADD_USER } from "../../utils/ApolloRequest";
 
 export const SignUp = withRouter(({ history }) => {
 	const [addUser, { data, error, loading }] = useMutation(ADD_USER);

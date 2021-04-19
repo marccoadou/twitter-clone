@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLazyQuery } from "@apollo/client";
-import { useAppContext } from "../utils/AppContext";
-import { CHECK_USER } from "../utils/ApolloRequest";
+import { useAppContext } from "../../utils/AppContext";
+import { CHECK_USER } from "../../utils/ApolloRequest";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 interface IProps extends RouteComponentProps<any> {}
@@ -47,7 +47,7 @@ export const Login: React.FunctionComponent<IProps> = (props) => {
 				{error ? <p>{error}</p> : null}
 			</Form>
 
-			<Link to="/signup">Don't have an account,sign up here</Link>
+			<Link to="/signup">Don't have an account, sign up here</Link>
 		</div>
 	);
 };

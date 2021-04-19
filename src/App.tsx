@@ -2,8 +2,8 @@ import "./styles/index.scss";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Main } from "./components/Main";
 import { useAppContext } from "./utils/AppContext";
-import { Login } from "./components/Login";
-import { SignUp } from "./components/SignUp";
+import { Login } from "./components/Authentification/Login";
+import { SignUp } from "./components/Authentification/SignUp";
 import { useEffect } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { NotFound } from "./components/NotFound";
@@ -20,7 +20,6 @@ export const App = () => {
 			}
 		}
 	});
-	console.log(state);
 	return (
 		<Router>
 			<Switch>
