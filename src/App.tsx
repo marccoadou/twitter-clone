@@ -10,7 +10,6 @@ import { NotFound } from "./components/NotFound";
 
 export const App = () => {
 	const { state, dispatch } = useAppContext();
-
 	useEffect(() => {
 		if (state.user.username === "") {
 			const userData = localStorage.getItem("user");

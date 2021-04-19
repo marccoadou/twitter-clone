@@ -7,22 +7,31 @@ import { Header } from "./Header";
 import { AdditionalContent } from "./AdditionalContent";
 import { CreateTweet } from "./CreateTweet";
 import { useAppContext } from "../utils/AppContext";
-import { useParams } from "react-router";
+import { useRouteMatch } from "react-router";
+import { GET_USER_INFO } from "../utils/ApolloRequest";
+import { useQuery } from "@apollo/client";
 
 export const Main: React.FC = () => {
 	const { state } = useAppContext();
-	let { id } = useParams<{ id: string }>();
+	let { url } = useRouteMatch();
+	const { data, error, loading } = useQuery(GET_USER_INFO, {
+		variables: { userHandle: url.slice(9) },
+	});
+
 	return (
 		<div className="main-columns">
-			{id}
 			<div>
 				<Header />
 			</div>
-			<div>
-				<ContextBar />
-				<Profile />
-				<ProfileFeed />
-			</div>
+			{data?.user ? (
+				<div>
+					<ContextBar user={data?.user} />
+					<Profile user={data?.user} />
+					<ProfileFeed user={data?.user} />
+				</div>
+			) : (
+				<>Loading the feed</>
+			)}
 			<div>
 				<AdditionalContent />
 			</div>

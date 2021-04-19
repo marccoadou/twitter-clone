@@ -7,6 +7,7 @@ import { AppContext, defaultUser } from "./utils/AppContext";
 import { useImmerReducer } from "use-immer";
 import { appReducer } from "./utils/AppReducer";
 import { App } from "./App";
+import { BrowserRouter } from "react-router-dom";
 
 const link = from([new HttpLink({ uri: "http://localhost:4000" })]);
 const client = new ApolloClient({
@@ -26,7 +27,9 @@ function AppContextWrapper() {
 		<div className="App">
 			<ApolloProvider client={client}>
 				<AppContext.Provider value={{ state, dispatch }}>
-					<App />
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
 				</AppContext.Provider>
 			</ApolloProvider>
 		</div>

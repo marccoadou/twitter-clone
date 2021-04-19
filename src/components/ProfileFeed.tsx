@@ -3,10 +3,15 @@ import { Tweet } from "./Tweet";
 import { useQuery } from "@apollo/client";
 import { useAppContext } from "../utils/AppContext";
 import { GET_TWEETS } from "../utils/ApolloRequest";
-export const ProfileFeed = () => {
+
+interface Props {
+	user: UserType;
+}
+
+export const ProfileFeed: React.FC<Props> = ({ user }) => {
 	const { state } = useAppContext();
 	const { loading, error, data, refetch } = useQuery(GET_TWEETS, {
-		variables: { userHandle: state.user.userHandle },
+		variables: { userHandle: user.userHandle },
 	});
 	useEffect(() => {
 		refetch();

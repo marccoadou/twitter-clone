@@ -227,7 +227,7 @@ const resolvers = {
 		},
 		async addLike(_, args) {
 			try {
-				const stats = await admin
+				await admin
 					.firestore()
 					.collection("tweets")
 					.doc(`${args.id}`)

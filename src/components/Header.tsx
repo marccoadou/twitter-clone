@@ -3,11 +3,11 @@ import "../styles/header.scss";
 import { UserChanger } from "./UserChanger";
 import { Button } from "react-bootstrap";
 import { useAppContext } from "../utils/AppContext";
-import { RouteComponentProps, withRouter } from "react-router";
-interface Props extends RouteComponentProps {}
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 export const Header = withRouter(({ history }) => {
-	const { dispatch } = useAppContext();
+	const { state, dispatch } = useAppContext();
 
 	const openTweetCreator = () => {
 		dispatch({ type: "TWEET_OPEN" });
@@ -38,7 +38,9 @@ export const Header = withRouter(({ history }) => {
 						<i className="far fa-list-alt"></i> Lists
 					</li>
 					<li>
-						<i className="fas fa-user"></i> Profile
+						<Link to={`/profile/${state.user.userHandle}`}>
+							<i className="fas fa-user"></i> Profile
+						</Link>
 					</li>
 					<li>
 						<i className="fas fa-ellipsis-h"></i> More
