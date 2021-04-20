@@ -1,6 +1,6 @@
 import React from "react";
 import { Media, Image } from "react-bootstrap";
-import { useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import DefaultUserIcon from "../img/default_profile_400x400.png";
 import "../styles/tweet.scss";
 import { ADD_LIKE } from "../utils/ApolloRequest";
@@ -15,7 +15,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	createdAt,
 }) => {
 	const { state } = useAppContext();
-	const [addLikeQuery, { data }] = useLazyQuery(ADD_LIKE);
+	const [addLikeQuery, { data }] = useMutation(ADD_LIKE);
 	const addLike = () => {
 		addLikeQuery({ variables: { id, state } });
 	};
@@ -49,7 +49,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 							<i className="fas fa-exchange-alt"></i>
 							<span className="numbers"> {statistics.retweets}</span>
 						</div>
-						<div className="share-icon">
+						<div className="like-icon" onClick={addLike}>
 							<i className="far fa-heart"></i>
 							<span className="numbers"> {statistics.likes}</span>
 						</div>
