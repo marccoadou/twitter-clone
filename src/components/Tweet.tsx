@@ -15,9 +15,16 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	createdAt,
 }) => {
 	const { state } = useAppContext();
-	const [addLikeQuery, { data }] = useMutation(ADD_LIKE);
+	const [addLikeMutation] = useMutation(ADD_LIKE);
 	const addLike = () => {
-		addLikeQuery({ variables: { id, state } });
+		addLikeMutation({
+			variables: { userHandle: state.user.userHandle, id: id },
+			update: (store, { data }) => {
+				const tweetData = store.readQuery<TweetType>({ query: ADD_LIKE });
+				console.log(data);
+				store.writeQuery<TweetType>({ query: ADD_LIKE, data });
+			},
+		});
 	};
 	return (
 		<>
@@ -33,7 +40,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 				<Media.Body>
 					<div className="tweet-user">
 						<h6>{user?.username}</h6>
-						<small>@{user?.userHandle}</small>
+						<small>@{userHandle}</small>
 						<small>{createdAt.slice(4, 25)}</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>

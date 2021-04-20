@@ -46,7 +46,6 @@ export const SignUp = withRouter(({ history }) => {
 	// 	`username: ${username}\nemail: ${email}\nuserHandle: ${userHandle}\npassword: ${password}`
 	// );
 	useEffect(() => {
-		console.log(data);
 		if (data?.addUser.credentials?.email) {
 			history.push("/login");
 		}

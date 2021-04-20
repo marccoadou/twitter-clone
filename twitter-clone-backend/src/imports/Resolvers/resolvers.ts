@@ -5,7 +5,6 @@ export const resolvers = {
 	User: {
 		async tweets(user) {
 			try {
-				console.log(user);
 				const userTweets = await exportAdmin
 					.firestore()
 					.collection("tweets")

@@ -6,6 +6,7 @@ export const tweetAddLike = {
 	Mutation: {
 		async addLike(_, args) {
 			try {
+				console.log(args);
 				await exportAdmin
 					.firestore()
 					.collection("tweets")

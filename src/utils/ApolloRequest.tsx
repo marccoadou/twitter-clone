@@ -5,6 +5,7 @@ export const GET_TWEETS = gql`
 		user(userHandle: $userHandle) {
 			tweets {
 				id
+				userHandle
 				text
 				createdAt
 				user {
@@ -13,9 +14,7 @@ export const GET_TWEETS = gql`
 				}
 				statistics {
 					likes
-					likesList {
-						userHandle
-					}
+					likesList
 					comments {
 						id
 						user {
@@ -24,9 +23,7 @@ export const GET_TWEETS = gql`
 						text
 					}
 					retweets
-					commentsList {
-						userHandle
-					}
+					commentsList
 					commentsNbr
 				}
 			}
@@ -62,11 +59,11 @@ export const ADD_TWEET = gql`
 `;
 
 export const ADD_LIKE = gql`
-	mutation addLike($userHandle: String, $id: String!) {
+	mutation addLike($userHandle: String!, $id: String!) {
 		addLike(userHandle: $userHandle, id: $id) {
-			id
-			user {
-				userHandle
+			statistics {
+				likes
+				likesList
 			}
 		}
 	}

@@ -5,18 +5,19 @@ export const tweetDef = gql`
 		id: ID!
 		text: String!
 		user: User!
+		userHandle: String!
 		statistics: TweetStats!
 		createdAt: String!
 	}
 
 	type TweetStats {
 		likes: Int!
-		likesList: [User]
+		likesList: [String]
 		retweets: Int!
-		retweetsList: [User]
+		retweetsList: [String]
 		commentsNbr: Int!
 		comments: [Tweet]
-		commentsList: [User]
+		commentsList: [String]
 	}
 
 	input TweetStatsInput {
