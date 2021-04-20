@@ -34,7 +34,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 					<div className="tweet-user">
 						<h6>{user?.username}</h6>
 						<small>@{user?.userHandle}</small>
-						<small>{createdAt}</small>
+						<small>{createdAt.slice(4, 25)}</small>
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
 						</a>

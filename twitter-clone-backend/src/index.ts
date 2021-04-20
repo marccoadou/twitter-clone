@@ -1,82 +1,18 @@
+import { UserResolvers } from "./imports/Resolvers/UserResolvers";
+import { tweetResolvers } from "./imports/Resolvers/TweetResolvers";
+import { tweetDef } from "./imports/Types/TweetDef";
+import { UserDef } from "./imports/Types/UserDef";
 import * as admin from "firebase-admin";
-import { ApolloServer, ApolloError, ValidationError, gql } from "apollo-server";
-import * as passwordHash from "password-hash";
-import uniqid = require("uniqid");
+import { ApolloServer, ApolloError, gql } from "apollo-server";
+import merge from "lodash/merge";
 
 const serviceAccount = require("../service-account.json");
 
-admin.initializeApp({
+export const exportAdmin = admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
 });
 
 const typeDefs = gql`
-	type ValidUser {
-		isValidLogin: Boolean!
-		error: String
-		user: User
-	}
-
-	type User {
-		credentials: Credentials
-		username: String!
-		userHandle: String!
-		userStats: UserStats!
-		tweets: [Tweet]!
-	}
-
-	type Credentials {
-		email: String!
-		password: String!
-	}
-
-	type Tweet {
-		id: ID!
-		text: String!
-		user: User!
-		statistics: TweetStats!
-		createdAt: String!
-	}
-
-	type UserStats {
-		totalLikes: Int!
-		totalRetweets: Int!
-		totalComments: Int!
-	}
-
-	type TweetStats {
-		likes: Int!
-		likesList: [User]
-		retweets: Int!
-		retweetsList: [User]
-		commentsNbr: Int!
-		comments: [Tweet]
-		commentsList: [User]
-	}
-
-	input UserInput {
-		credentials: CredentialsInput!
-		fullName: String!
-		userHandle: String!
-		userStats: UserStatsInput!
-	}
-
-	input CredentialsInput {
-		email: String!
-		password: String!
-	}
-
-	input UserStatsInput {
-		totalLikes: Int!
-		totalRetweets: Int!
-		totalComments: Int!
-	}
-
-	input TweetStatsInput {
-		likes: Int!
-		retweets: Int!
-		comments: Int!
-	}
-
 	type Query {
 		users: [User]
 		tweets: [Tweet]
@@ -110,11 +46,14 @@ const resolvers = {
 					.get();
 				const tweets = userTweets.docs.map((tweet) => tweet.data());
 				tweets.forEach((tweet) => {
-					tweet.createdAt = tweet.createdAt.toDate().toLocaleTimeString();
+					tweet.createdAt = tweet.createdAt.toDate();
 				});
 				console.log(tweets);
 				tweets.sort((a, b) => {
-					return b.createdAt - a.createdAt;
+					return a.createdAt - b.createdAt;
+				});
+				tweets.forEach((tweet) => {
+					tweet.createdAt = tweet.createdAt.toString();
 				});
 				return tweets.reverse();
 			} catch (error) {
@@ -132,99 +71,7 @@ const resolvers = {
 			}
 		},
 	},
-	Query: {
-		async tweets() {
-			const tweets = await admin.firestore().collection("tweets").get();
-			return tweets.docs.map((tweet) => tweet.data());
-		},
-		async user(_, args) {
-			try {
-				const userDoc = await admin.firestore().doc(`users/${args.userHandle}`).get();
-				const user = userDoc.data();
-				return user || new ValidationError("User not found");
-			} catch (error) {
-				throw new ApolloError(error);
-			}
-		},
-		async users() {
-			try {
-				const users = await admin.firestore().collection("users").get();
-				return users.docs.map((user) => user.data());
-			} catch (error) {
-				throw new ApolloError(error);
-			}
-		},
-		async checkUser(_, args) {
-			console.log(args);
-			try {
-				const userDoc = await admin
-					.firestore()
-					.collection("users")
-					.where("credentials.email", "==", args.email)
-					.get();
-				var user = {
-					isValidLogin: false,
-					error: "",
-					user: userDoc.docs.map((user) => user.data())[0],
-				};
-				let isValid = passwordHash.verify(args.password, user.user.credentials.password);
-				user.isValidLogin = isValid;
-				user.error = user.isValidLogin ? "" : "Wrong password or email";
-				console.log(user);
-				return user;
-			} catch (error) {
-				throw new ApolloError(error);
-			}
-		},
-	},
 	Mutation: {
-		async addUser(_, args) {
-			try {
-				if (args.credentials.password) {
-					const hashed = passwordHash.generate(args.credentials.password);
-					args.credentials.password = hashed;
-				}
-				const userAdded = await admin
-					.firestore()
-					.collection("users")
-					.doc(`${args.userHandle}`)
-					.set(args)
-					.then(async () => {
-						const returnUser = await admin.firestore().doc(`users/${args.userHandle}`).get();
-						return returnUser.data();
-					});
-				return userAdded;
-			} catch (error) {
-				throw new ApolloError(error);
-			}
-		},
-		async addTweet(_, args) {
-			try {
-				args.id = uniqid();
-				args.createdAt = admin.firestore.Timestamp.now();
-				args.statistics = {
-					likes: 0,
-					likesList: [],
-					retweets: 0,
-					retweetsList: [],
-					commentsNbr: 0,
-					comments: [],
-					commentsList: [],
-				};
-				const newTweet = await admin
-					.firestore()
-					.collection("tweets")
-					.doc(`${args.id}`)
-					.set(args)
-					.then(async () => {
-						const tweet = await admin.firestore().doc(`tweets/${args.id}`).get();
-						return tweet.data();
-					});
-				return newTweet;
-			} catch (error) {
-				throw new ApolloError(error);
-			}
-		},
 		async addLike(_, args) {
 			try {
 				await admin
@@ -245,8 +92,8 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-	typeDefs,
-	resolvers,
+	typeDefs: [typeDefs, tweetDef, UserDef],
+	resolvers: merge(resolvers, tweetResolvers, UserResolvers),
 });
 
 server.listen().then(({ url }) => {
