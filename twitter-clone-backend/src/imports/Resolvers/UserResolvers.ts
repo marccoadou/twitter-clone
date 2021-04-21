@@ -1,6 +1,7 @@
 import { ApolloError, ValidationError } from "apollo-server";
 import { exportAdmin } from "../../index";
 import * as passwordHash from "password-hash";
+import uniqid = require("uniqid");
 
 export const UserResolvers = {
 	Query: {

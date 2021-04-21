@@ -11,7 +11,17 @@ import { BrowserRouter } from "react-router-dom";
 
 const link = from([new HttpLink({ uri: "http://localhost:4000" })]);
 const client = new ApolloClient({
-	cache: new InMemoryCache({ addTypename: true }),
+	cache: new InMemoryCache({
+		addTypename: true,
+		typePolicies: {
+			User: {
+				keyFields: [["username"]],
+			},
+			Tweet: {
+				keyFields: ["id"],
+			},
+		},
+	}),
 	link: link,
 });
 
