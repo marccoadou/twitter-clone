@@ -6,7 +6,7 @@ import { UserDef } from "./imports/Types/UserDef";
 import { tweetAddLike } from "./imports/Resolvers/TweetStatsResolvers/TweetAddLike";
 import { ApolloServer, gql } from "apollo-server";
 import * as admin from "firebase-admin";
-import merge from "lodash/merge";
+import * as merge from "lodash/merge";
 
 const serviceAccount = require("../service-account.json");
 

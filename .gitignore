@@ -26,5 +26,3 @@ yarn-error.log*
 twitter-clone-backend/lib
 twitter-clone-backend/node_modules
 twitter-clone-backend/service-account.json
-twitter-clone-backend/tslint.json
-twitter-clone-backend/tsconfig.json
