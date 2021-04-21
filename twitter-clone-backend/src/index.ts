@@ -18,6 +18,7 @@ const typeDefs = gql`
 	type Query {
 		users: [User]
 		tweets: [Tweet]
+		tweet(id: ID!): Tweet
 		user(userHandle: String!): User
 		checkUser(email: String!, password: String!): ValidUser
 	}

@@ -19,6 +19,12 @@ export const tweetResolvers = {
 			const tweets = await exportAdmin.firestore().collection("tweets").get();
 			return tweets.docs.map((tweet) => tweet.data());
 		},
+		async tweet(_, args) {
+			const tweetData = await exportAdmin.firestore().collection("tweets").doc(`${args.id}`).get();
+			const tweet = tweetData.data();
+			tweet.createdAt = tweet.createdAt.toDate().toString();
+			return tweet;
+		},
 	},
 	Mutation: {
 		async addTweet(_, args) {

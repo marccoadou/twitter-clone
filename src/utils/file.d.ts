@@ -35,10 +35,10 @@ type UserStatsType = {
 
 type TweetStatsType = {
 	likes: number;
-	likesList: [UserType];
+	likesList: [string];
 	retweets: number;
-	retweetsList: [UserType];
+	retweetsList: [string];
 	commentsNbr: number;
-	comments: [TweetType];
+	comments: [string];
 	commentsList: [User];
 };

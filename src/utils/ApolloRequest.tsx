@@ -58,12 +58,59 @@ export const ADD_TWEET = gql`
 	}
 `;
 
-export const ADD_LIKE = gql`
-	mutation addLike($userHandle: String!, $id: String!) {
-		addLike(userHandle: $userHandle, id: $id) {
+export const GET_TWEET = gql`
+	query getTweet($id: ID!) {
+		getTweet(id: $id) {
+			id
+			userHandle
+			text
+			createdAt
+			user {
+				username
+				userHandle
+			}
 			statistics {
 				likes
 				likesList
+				comments {
+					id
+					user {
+						userHandle
+					}
+					text
+				}
+				retweets
+				commentsList
+				commentsNbr
+			}
+		}
+	}
+`;
+
+export const ADD_LIKE = gql`
+	mutation addLike($userHandle: String!, $id: String!) {
+		addLike(userHandle: $userHandle, id: $id) {
+			id
+			userHandle
+			text
+			createdAt
+			user {
+				username
+				userHandle
+			}
+			statistics {
+				likes
+				likesList
+				comments {
+					id
+					user {
+						userHandle
+					}
+					text
+				}
+				retweets
+				commentsList
+				commentsNbr
 			}
 		}
 	}

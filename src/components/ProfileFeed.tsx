@@ -13,6 +13,7 @@ export const ProfileFeed: React.FC<Props> = ({ user }) => {
 	const { loading, error, data, refetch } = useQuery(GET_TWEETS, {
 		variables: { userHandle: user.userHandle },
 	});
+
 	useEffect(() => {
 		refetch();
 	}, [refetch, state.refreshFeed]);

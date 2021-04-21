@@ -1,8 +1,8 @@
+import "../styles/tweet.scss";
 import React from "react";
 import { Media, Image } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import DefaultUserIcon from "../img/default_profile_400x400.png";
-import "../styles/tweet.scss";
 import { ADD_LIKE } from "../utils/ApolloRequest";
 import { useAppContext } from "../utils/AppContext";
 
@@ -19,11 +19,6 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	const addLike = () => {
 		addLikeMutation({
 			variables: { userHandle: state.user.userHandle, id: id },
-			update: (store, { data }) => {
-				const tweetData = store.readQuery<TweetType>({ query: ADD_LIKE });
-				console.log(data);
-				store.writeQuery<TweetType>({ query: ADD_LIKE, data });
-			},
 		});
 	};
 	return (
@@ -57,7 +52,12 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 							<span className="numbers"> {statistics.retweets}</span>
 						</div>
 						<div className="like-icon" onClick={addLike}>
-							<i className="far fa-heart"></i>
+							<i
+								className={
+									statistics.likesList.includes(`${state.user.userHandle}`)
+										? "fas fa-heart"
+										: "far fa-heart"
+								}></i>
 							<span className="numbers"> {statistics.likes}</span>
 						</div>
 						<div className="share-icon">

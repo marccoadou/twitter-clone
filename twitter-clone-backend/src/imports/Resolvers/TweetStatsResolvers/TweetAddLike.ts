@@ -15,8 +15,10 @@ export const tweetAddLike = {
 						"statistics.likes": LocalAdmin.firestore.FieldValue.increment(1),
 						"statistics.likesList": LocalAdmin.firestore.FieldValue.arrayUnion(args.userHandle),
 					});
-				const tweet = await exportAdmin.firestore().doc(`tweets/${args.id}`).get();
-				return tweet.data();
+				const tweetData = await exportAdmin.firestore().doc(`tweets/${args.id}`).get();
+				const tweet = tweetData.data();
+				tweet.createdAt = tweet.createdAt.toDate().toString();
+				return tweet;
 			} catch (error) {
 				throw new ApolloError(error);
 			}

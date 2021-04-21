@@ -10,6 +10,7 @@ import { useAppContext } from "../utils/AppContext";
 import { useRouteMatch } from "react-router";
 import { GET_USER_INFO } from "../utils/ApolloRequest";
 import { useQuery } from "@apollo/client";
+import { Loader } from "./Spinner";
 
 export const Main: React.FC = () => {
 	const { state } = useAppContext();
@@ -17,6 +18,13 @@ export const Main: React.FC = () => {
 	const { data, error, loading } = useQuery(GET_USER_INFO, {
 		variables: { userHandle: url.slice(9) },
 	});
+	if (loading)
+		return (
+			<div className="center-loader">
+				<Loader />
+			</div>
+		);
+	if (error) return <div>{error.message}</div>;
 	return (
 		<div className="main-columns">
 			<div>
