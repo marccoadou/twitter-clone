@@ -50,6 +50,7 @@ export const GET_USER_INFO = gql`
 export const ADD_TWEET = gql`
 	mutation addTweet($text: String!, $userHandle: String!) {
 		addTweet(text: $text, userHandle: $userHandle) {
+			id
 			user {
 				userHandle
 			}
@@ -90,6 +91,34 @@ export const GET_TWEET = gql`
 export const ADD_LIKE = gql`
 	mutation addLike($userHandle: String!, $id: String!) {
 		addLike(userHandle: $userHandle, id: $id) {
+			id
+			userHandle
+			text
+			createdAt
+			user {
+				username
+				userHandle
+			}
+			statistics {
+				likes
+				likesList
+				comments {
+					id
+					user {
+						userHandle
+					}
+					text
+				}
+				retweets
+				commentsList
+				commentsNbr
+			}
+		}
+	}
+`;
+export const REMOVE_LIKE = gql`
+	mutation addLike($userHandle: String!, $id: String!) {
+		removeLike(userHandle: $userHandle, id: $id) {
 			id
 			userHandle
 			text

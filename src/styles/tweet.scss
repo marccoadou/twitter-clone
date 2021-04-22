@@ -27,6 +27,8 @@
 	.tweet-icons {
 		display: flex;
 		justify-content: space-between;
+		margin-right: auto;
+		width: 80%;
 	}
 	&:hover {
 		background-color: var(--hover-color-light);
@@ -34,7 +36,7 @@
 }
 
 .fas {
-	.fa-heart {
-		color: red;
+	&.fa-heart {
+		color: hsla(0, 68%, 50%, 0.897);
 	}
 }

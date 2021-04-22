@@ -1,3 +1,4 @@
+import { tweetRemoveLike } from "./imports/Resolvers/TweetStatsResolvers/TweetRemoveLike";
 import { resolvers } from "./imports/Resolvers/resolvers";
 import { UserResolvers } from "./imports/Resolvers/UserResolvers";
 import { tweetResolvers } from "./imports/Resolvers/TweetResolvers";
@@ -33,13 +34,14 @@ const typeDefs = gql`
 		updateUser(input: UserInput): User
 		addTweet(text: String!, userHandle: String!): Tweet
 		addLike(userHandle: String!, id: String!): Tweet
+		removeLike(userHandle: String!, id: String!): Tweet
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;
 
 const server = new ApolloServer({
 	typeDefs: [typeDefs, tweetDef, UserDef],
-	resolvers: merge(resolvers, tweetResolvers, UserResolvers, tweetAddLike),
+	resolvers: merge(resolvers, tweetResolvers, UserResolvers, tweetAddLike, tweetRemoveLike),
 });
 
 server.listen().then(({ url }) => {

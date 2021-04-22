@@ -6,7 +6,7 @@ import { Login } from "./components/Authentification/Login";
 import { SignUp } from "./components/Authentification/SignUp";
 import { useEffect } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { NotFound } from "./components/NotFound";
+import { NotFound } from "./components/404/NotFound";
 
 export const App = () => {
 	const { state, dispatch } = useAppContext();

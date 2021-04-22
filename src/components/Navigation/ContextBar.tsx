@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/contextbar.scss";
+import "../../styles/contextbar.scss";
 
 interface Props {
 	user: UserType;

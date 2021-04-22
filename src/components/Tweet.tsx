@@ -1,10 +1,11 @@
 import "../styles/tweet.scss";
 import React from "react";
 import { Media, Image } from "react-bootstrap";
-import { useMutation } from "@apollo/client";
 import DefaultUserIcon from "../img/default_profile_400x400.png";
-import { ADD_LIKE } from "../utils/ApolloRequest";
-import { useAppContext } from "../utils/AppContext";
+import { LikeButton } from "./Buttons/Tweet/LikeButton";
+import { CommentButton } from "./Buttons/Tweet/CommentButton";
+import { RetweetButton } from "./Buttons/Tweet/RetweetButton";
+import { ShareButton } from "./Buttons/Tweet/ShareButton";
 
 export const Tweet: React.FunctionComponent<TweetType> = ({
 	id,
@@ -14,13 +15,6 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	user,
 	createdAt,
 }) => {
-	const { state } = useAppContext();
-	const [addLikeMutation] = useMutation(ADD_LIKE);
-	const addLike = () => {
-		addLikeMutation({
-			variables: { userHandle: state.user.userHandle, id: id },
-		});
-	};
 	return (
 		<>
 			<Media className="tweet">
@@ -43,26 +37,10 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 					</div>
 					<p>{text}</p>
 					<div className="tweet-icons">
-						<div className="comment-icon">
-							<i className="fas fa-comment"></i>
-							<span className="numbers"> {statistics?.commentsNbr}</span>
-						</div>
-						<div className="retweet-icon">
-							<i className="fas fa-exchange-alt"></i>
-							<span className="numbers"> {statistics.retweets}</span>
-						</div>
-						<div className="like-icon" onClick={addLike}>
-							<i
-								className={
-									statistics.likesList.includes(`${state.user.userHandle}`)
-										? "fas fa-heart"
-										: "far fa-heart"
-								}></i>
-							<span className="numbers"> {statistics.likes}</span>
-						</div>
-						<div className="share-icon">
-							<i className="fas fa-share"></i>
-						</div>
+						<CommentButton id={id} statistics={statistics} />
+						<RetweetButton id={id} statistics={statistics} />
+						<LikeButton id={id} statistics={statistics} />
+						<ShareButton id={id} statistics={statistics} />
 					</div>
 				</Media.Body>
 			</Media>

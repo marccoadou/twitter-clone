@@ -3,11 +3,6 @@ import DefaultProfilePic from "../img/default_profile_400x400.png";
 import DefaultCoverPic from "../img/mountain.jpg";
 import { Button, Image } from "react-bootstrap";
 import "../styles/profile.scss";
-import { useAppContext } from "../utils/AppContext";
-import { useParams } from "react-router-dom";
-import { GET_USER_INFO } from "../utils/ApolloRequest";
-import { useQuery } from "@apollo/client";
-
 interface Props {
 	user: UserType;
 }

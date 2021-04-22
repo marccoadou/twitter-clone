@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultUser, useAppContext } from "../utils/AppContext";
+import { defaultUser, useAppContext } from "../../../utils/AppContext";
 import { withRouter } from "react-router-dom";
 
 export const UserChanger = withRouter(({ history }) => {
