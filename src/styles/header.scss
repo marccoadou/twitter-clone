@@ -24,13 +24,13 @@ header {
 		font-weight: 600;
 		text-align: left;
 		cursor: pointer;
-		&:nth-child(11) {
-			margin-top: auto;
-			padding-bottom: 2em;
-		}
 		&:hover {
 			color: rgb(47, 112, 185);
 			border-radius: 2em;
 		}
+	}
+	:nth-child(11) {
+		margin-top: auto;
+		padding-bottom: 2em;
 	}
 }

@@ -1,4 +1,5 @@
 import "./styles/index.scss";
+import "./styles/buttons.scss";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Main } from "./components/Main";
 import { useAppContext } from "./utils/AppContext";
@@ -7,19 +8,29 @@ import { SignUp } from "./components/Authentification/SignUp";
 import { useEffect } from "react";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { NotFound } from "./components/404/NotFound";
+import { GET_USER_INFO } from "./utils/ApolloRequest";
+import { useLazyQuery } from "@apollo/client";
 
 export const App = () => {
+	const [getInfo, { data }] = useLazyQuery(GET_USER_INFO);
 	const { state, dispatch } = useAppContext();
 	useEffect(() => {
 		if (state.user.username === "") {
 			const userData = localStorage.getItem("user");
 			if (userData != null) {
-				const user = JSON.parse(userData);
-				dispatch({ type: "SET_USER", value: user });
-				dispatch({ type: "LOGIN" });
+				const storedUser = JSON.parse(userData);
+				getInfo({ variables: { userHandle: storedUser.userHandle } });
 			}
 		}
-	});
+	}, [getInfo, state.user.username]);
+
+	useEffect(() => {
+		if (data?.user) {
+			console.log(data.user);
+			dispatch({ type: "SET_USER", value: data.user });
+			dispatch({ type: "LOGIN" });
+		}
+	}, [data?.user, dispatch, getInfo]);
 	return (
 		<Router>
 			<Switch>

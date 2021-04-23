@@ -1,0 +1,28 @@
+.profile-button {
+	margin: 1em 1em 0 0;
+	float: right;
+	color: white;
+	font-size: 1em;
+	font-weight: bold;
+	height: 3em;
+	padding: 0em 1rem 0rem 1rem;
+	border: var(--border);
+	border-radius: 9999px;
+	background-color: var(--background-color);
+	color: rgb(204, 212, 219);
+	&:hover {
+		background-color: var(--hover-color-light);
+		color: white;
+	}
+}
+
+.arrow::after {
+	content: " ";
+	position: absolute;
+	top: 100%; /* At the bottom of the tooltip */
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: white transparent transparent transparent;
+}

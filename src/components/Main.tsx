@@ -1,7 +1,7 @@
 import "../styles/main.scss";
-import React, { useEffect } from "react";
-import { Profile } from "./Profile";
-import { ProfileFeed } from "./ProfileFeed";
+import React from "react";
+import { Profile } from "./Profile/Profile";
+import { ProfileFeed } from "./Profile/ProfileFeed";
 import { ContextBar } from "./Navigation/ContextBar";
 import { Header } from "./Navigation/Header";
 import { AdditionalContent } from "./AdditionalContent";
@@ -16,12 +16,9 @@ export const Main: React.FC = () => {
 	const { state } = useAppContext();
 	let { url } = useRouteMatch();
 
-	const { data, error, loading, refetch } = useQuery(GET_USER_INFO, {
+	const { data, error, loading } = useQuery(GET_USER_INFO, {
 		variables: { userHandle: url.slice(9) },
 	});
-	useEffect(() => {
-		refetch();
-	}, [refetch, url]);
 	if (loading)
 		return (
 			<div className="center-loader">

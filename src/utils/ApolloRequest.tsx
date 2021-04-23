@@ -30,9 +30,11 @@ export const GET_TWEETS = gql`
 		}
 	}
 `;
+
 export const GET_USER_INFO = gql`
 	query getUser($userHandle: String!) {
 		user(userHandle: $userHandle) {
+			id
 			username
 			userHandle
 			credentials {
@@ -44,9 +46,16 @@ export const GET_USER_INFO = gql`
 				totalRetweets
 				totalComments
 			}
+			following
 		}
 	}
 `;
+export const FOLLOW = gql`
+	mutation follow($userHandle: String!, $toFollowUserHandle: String!) {
+		follow(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
+	}
+`;
+
 export const ADD_TWEET = gql`
 	mutation addTweet($text: String!, $userHandle: String!) {
 		addTweet(text: $text, userHandle: $userHandle) {

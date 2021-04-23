@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Tweet } from "./Tweet";
+import { Tweet } from "./../Tweet";
 import { useQuery } from "@apollo/client";
-import { useAppContext } from "../utils/AppContext";
-import { GET_TWEETS } from "../utils/ApolloRequest";
+import { useAppContext } from "../../utils/AppContext";
+import { GET_TWEETS } from "../../utils/ApolloRequest";
 import { useRouteMatch } from "react-router";
-import { Loader } from "./Spinner";
+import { Loader } from "../Spinner";
 
 interface Props {
 	user: UserType;

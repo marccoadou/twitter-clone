@@ -13,6 +13,7 @@ export const defaultUser: UserType = {
 		totalLikes: 0,
 		totalRetweets: 0,
 	},
+	following: [""],
 };
 
 export type AppContextContent = {

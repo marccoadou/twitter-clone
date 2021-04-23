@@ -1,7 +1,7 @@
 import { ApolloError, ValidationError } from "apollo-server";
 import { exportAdmin } from "../../index";
 import * as passwordHash from "password-hash";
-import uniqid = require("uniqid");
+var uniqid = require("uniqid");
 
 export const UserResolvers = {
 	Query: {
@@ -52,6 +52,8 @@ export const UserResolvers = {
 					const hashed = passwordHash.generate(args.credentials.password);
 					args.credentials.password = hashed;
 				}
+
+				args.id = uniqid();
 				const userAdded = await exportAdmin
 					.firestore()
 					.collection("users")

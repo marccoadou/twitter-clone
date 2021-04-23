@@ -48,9 +48,7 @@ export const Header = withRouter(({ history }) => {
 					<li>
 						<Button onClick={openTweetCreator}>Tweet</Button>
 					</li>
-					<li>
-						<UserChanger />
-					</li>
+					<UserChanger />
 				</nav>
 			</header>
 		</>

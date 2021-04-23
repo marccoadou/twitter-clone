@@ -1,7 +1,8 @@
 import React from "react";
 import { defaultUser, useAppContext } from "../../../utils/AppContext";
 import { withRouter } from "react-router-dom";
-
+import { DropDown } from "../DropDown/Dropdown";
+import { DropdownItem } from "../DropDown/DropdownItem";
 export const UserChanger = withRouter(({ history }) => {
 	const { dispatch } = useAppContext();
 	const logOut = () => {
@@ -12,7 +13,16 @@ export const UserChanger = withRouter(({ history }) => {
 	};
 	return (
 		<>
-			<div onClick={logOut}>UserChanger</div>
+			<DropDown title="User Changer">
+				<DropdownItem>
+					<p>Hello World</p>
+				</DropdownItem>
+				<DropdownItem>
+					<div className="cursorpointer" onClick={logOut}>
+						LogOut
+					</div>
+				</DropdownItem>
+			</DropDown>
 		</>
 	);
 });

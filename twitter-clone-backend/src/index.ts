@@ -1,3 +1,5 @@
+import { follow } from "./imports/Resolvers/FollowResolvers/Follow";
+import { unfollow } from "./imports/Resolvers/FollowResolvers/Unfollow";
 import { tweetRemoveLike } from "./imports/Resolvers/TweetStatsResolvers/TweetRemoveLike";
 import { resolvers } from "./imports/Resolvers/resolvers";
 import { UserResolvers } from "./imports/Resolvers/UserResolvers";
@@ -35,13 +37,23 @@ const typeDefs = gql`
 		addTweet(text: String!, userHandle: String!): Tweet
 		addLike(userHandle: String!, id: String!): Tweet
 		removeLike(userHandle: String!, id: String!): Tweet
+		follow(userHandle: String!, toFollowUserHandle: String!): Boolean
+		unfollow(userHandle: String!, toFollowUserHandle: String!): Boolean
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;
 
 const server = new ApolloServer({
 	typeDefs: [typeDefs, tweetDef, UserDef],
-	resolvers: merge(resolvers, tweetResolvers, UserResolvers, tweetAddLike, tweetRemoveLike),
+	resolvers: merge(
+		resolvers,
+		tweetResolvers,
+		UserResolvers,
+		tweetAddLike,
+		tweetRemoveLike,
+		follow,
+		unfollow
+	),
 });
 
 server.listen().then(({ url }) => {

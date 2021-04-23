@@ -8,11 +8,13 @@ export const UserDef = gql`
 	}
 
 	type User {
+		id: ID!
 		credentials: Credentials
 		username: String!
 		userHandle: String!
 		userStats: UserStats!
 		tweets: [Tweet]!
+		following: [String]!
 	}
 
 	input UserInput {

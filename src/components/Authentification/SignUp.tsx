@@ -8,7 +8,7 @@ import * as EmailValidator from "email-validator";
 import { ADD_USER } from "../../utils/ApolloRequest";
 
 export const SignUp = withRouter(({ history }) => {
-	const [addUser, { data, error, loading }] = useMutation(ADD_USER);
+	const [addUser, { data }] = useMutation(ADD_USER);
 	const [username, setUsername] = useState("");
 	const [userHandle, setUserHandle] = useState("");
 	const [password, setPassword] = useState("");
@@ -29,8 +29,8 @@ export const SignUp = withRouter(({ history }) => {
 					totalComments: 0,
 					totalRetweets: 0,
 				},
+				following: [""],
 			};
-
 			addUser({
 				variables: {
 					credentials: newUser.credentials,
