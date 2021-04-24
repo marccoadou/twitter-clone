@@ -2,9 +2,9 @@ import { exportAdmin } from "../../../index";
 import * as LocalAdmin from "firebase-admin";
 import { ApolloError } from "@apollo/client";
 
-export const unfollow = {
+export const unfollowUser = {
 	Mutation: {
-		async follow(_, args) {
+		async unfollowUser(_, args) {
 			try {
 				const follow = await exportAdmin
 					.firestore()

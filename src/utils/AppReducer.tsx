@@ -1,4 +1,4 @@
-export const appReducer = (state: AppContextType, action: { type: any; value: UserType }) => {
+export const appReducer = (state: AppContextType, action: { type: any; value: any }) => {
 	switch (action.type) {
 		case "LOGIN":
 			state.isLoggedIn = true;
@@ -8,6 +8,9 @@ export const appReducer = (state: AppContextType, action: { type: any; value: Us
 			break;
 		case "SET_USER":
 			state.user = action.value;
+			break;
+		case "FOLLOW":
+			state.user.following.push(action.value);
 			break;
 		case "TWEET_OPEN":
 			state.isCreatingTweet = true;

@@ -6,13 +6,14 @@ import { useAppContext } from "./utils/AppContext";
 import { Login } from "./components/Authentification/Login";
 import { SignUp } from "./components/Authentification/SignUp";
 import { useEffect } from "react";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { NotFound } from "./components/404/NotFound";
+import { PrivateRoute } from "./components/Profile/PrivateRoute";
+import { NotFound } from "./components/UtilsComponent/NotFound";
 import { GET_USER_INFO } from "./utils/ApolloRequest";
 import { useLazyQuery } from "@apollo/client";
+import { Loader } from "./components/Spinner";
 
 export const App = () => {
-	const [getInfo, { data }] = useLazyQuery(GET_USER_INFO);
+	const [getInfo, { data, loading }] = useLazyQuery(GET_USER_INFO);
 	const { state, dispatch } = useAppContext();
 	useEffect(() => {
 		if (state.user.username === "") {
@@ -31,6 +32,12 @@ export const App = () => {
 			dispatch({ type: "LOGIN" });
 		}
 	}, [data?.user, dispatch, getInfo]);
+	if (loading)
+		return (
+			<>
+				<Loader />
+			</>
+		);
 	return (
 		<Router>
 			<Switch>

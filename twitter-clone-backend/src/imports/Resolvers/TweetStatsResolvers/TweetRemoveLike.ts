@@ -6,6 +6,7 @@ export const tweetRemoveLike = {
 	Mutation: {
 		async removeLike(_, args) {
 			try {
+				console.log(args);
 				const tweetRef = await exportAdmin.firestore().collection("tweets").doc(`${args.id}`).get();
 				const tweetCheck = tweetRef.data();
 				if (

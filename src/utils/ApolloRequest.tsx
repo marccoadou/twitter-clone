@@ -11,6 +11,7 @@ export const GET_TWEETS = gql`
 				user {
 					username
 					userHandle
+					following
 				}
 				statistics {
 					likes
@@ -51,8 +52,8 @@ export const GET_USER_INFO = gql`
 	}
 `;
 export const FOLLOW = gql`
-	mutation follow($userHandle: String!, $toFollowUserHandle: String!) {
-		follow(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
+	mutation followUser($userHandle: String!, $toFollowUserHandle: String!) {
+		followUser(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
 	}
 `;
 

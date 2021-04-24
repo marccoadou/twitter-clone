@@ -2,10 +2,11 @@ import { exportAdmin } from "../../../index";
 import * as LocalAdmin from "firebase-admin";
 import { ApolloError } from "@apollo/client";
 
-export const follow = {
+export const followUser = {
 	Mutation: {
-		async follow(_: any, args: { userHandle: string; toFollowUserHandle: string }) {
+		async followUser(_, args) {
 			try {
+				console.log(args.userHandle);
 				const following = await exportAdmin
 					.firestore()
 					.collection("users")
@@ -13,11 +14,10 @@ export const follow = {
 					.update({
 						following: LocalAdmin.firestore.FieldValue.arrayUnion(args.toFollowUserHandle),
 					})
-					.then((e) => {
-						console.log(e);
+					.then(() => {
 						return true;
 					})
-					.catch(() => {
+					.catch((error) => {
 						return false;
 					});
 				return following;

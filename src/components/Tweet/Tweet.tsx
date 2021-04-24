@@ -1,11 +1,11 @@
-import "../styles/tweet.scss";
+import "../../styles/tweet.scss";
 import React from "react";
 import { Media, Image } from "react-bootstrap";
-import DefaultUserIcon from "../img/default_profile_400x400.png";
-import { LikeButton } from "./Buttons/Tweet/LikeButton";
-import { CommentButton } from "./Buttons/Tweet/CommentButton";
-import { RetweetButton } from "./Buttons/Tweet/RetweetButton";
-import { ShareButton } from "./Buttons/Tweet/ShareButton";
+import DefaultUserIcon from "../../img/default_profile_400x400.png";
+import { LikeButton } from "../Buttons/Tweet/LikeButton";
+import { CommentButton } from "../Buttons/Tweet/CommentButton";
+import { RetweetButton } from "../Buttons/Tweet/RetweetButton";
+import { ShareButton } from "../Buttons/Tweet/ShareButton";
 
 export const Tweet: React.FunctionComponent<TweetType> = ({
 	id,

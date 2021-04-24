@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Tweet } from "./../Tweet";
+import { Tweet } from "../Tweet/Tweet";
 import { useQuery } from "@apollo/client";
 import { useAppContext } from "../../utils/AppContext";
 import { GET_TWEETS } from "../../utils/ApolloRequest";
