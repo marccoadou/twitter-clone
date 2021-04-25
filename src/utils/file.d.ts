@@ -11,7 +11,7 @@ type UserType = {
 	userHandle: string;
 	userStats: UserStatsType;
 	tweets?: TweetType[];
-	following: [string];
+	following: string[];
 };
 
 type TweetType = {

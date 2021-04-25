@@ -6,7 +6,6 @@ import { useAppContext } from "../../../utils/AppContext";
 interface Props {
 	class: string;
 	placeholder: string;
-	isFollowing: boolean;
 	toFollowUserHandle: string;
 }
 
@@ -21,11 +20,27 @@ export const FollowButton: React.FC<Props> = (props) => {
 			},
 		});
 	};
+
+	const unfollow = () => {
+		followUser({
+			variables: {
+				userHandle: state.user.userHandle,
+				toFollowUserHandle: props.toFollowUserHandle,
+			},
+		});
+	};
+
 	useEffect(() => {
 		if (data?.followUser === true && !state.user.following.includes(props.toFollowUserHandle)) {
 			dispatch({ type: "FOLLOW", value: props.toFollowUserHandle });
 		}
-	}, [data?.followUser, dispatch, props.toFollowUserHandle, state.user.following]);
+	}, [
+		data?.followUser,
+		data?.unfollowUser,
+		dispatch,
+		props.toFollowUserHandle,
+		state.user.following,
+	]);
 	return (
 		<>
 			<button className={props.class} onClick={follow}>

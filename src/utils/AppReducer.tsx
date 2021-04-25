@@ -12,6 +12,12 @@ export const appReducer = (state: AppContextType, action: { type: any; value: an
 		case "FOLLOW":
 			state.user.following.push(action.value);
 			break;
+
+		case "UNFOLLOW":
+			state.user.following = state.user.following.filter((userHandle) => {
+				return userHandle !== action.value;
+			});
+			break;
 		case "TWEET_OPEN":
 			state.isCreatingTweet = true;
 			break;

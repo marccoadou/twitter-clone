@@ -56,7 +56,11 @@ export const FOLLOW = gql`
 		followUser(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
 	}
 `;
-
+export const UNFOLLOW = gql`
+	mutation unfollowUser($userHandle: String!, $toFollowUserHandle: String!) {
+		unfollowUser(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
+	}
+`;
 export const ADD_TWEET = gql`
 	mutation addTweet($text: String!, $userHandle: String!) {
 		addTweet(text: $text, userHandle: $userHandle) {

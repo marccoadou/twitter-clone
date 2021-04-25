@@ -5,7 +5,7 @@ import { Image } from "react-bootstrap";
 import "../../styles/profile.scss";
 import { useRouteMatch } from "react-router";
 import { useAppContext } from "../../utils/AppContext";
-import { FollowButton } from "../Buttons/Profile/FollowButton";
+import { Follow } from "../Buttons/Profile/Follow";
 interface Props {
 	user: UserType;
 }
@@ -22,6 +22,7 @@ export const Profile: React.FC<Props> = ({ user }) => {
 			setIsFollowing(false);
 		}
 	}, [profileUrl, state.user.following]);
+	console.log(state.user.following);
 	const foreignProfile = state.user.userHandle !== profileUrl;
 	return (
 		<>
@@ -30,7 +31,7 @@ export const Profile: React.FC<Props> = ({ user }) => {
 					<Image src={DefaultCoverPic} className="cover-pic" />
 					<Image src={DefaultProfilePic} roundedCircle className="profile-pic" />
 					{foreignProfile ? (
-						<FollowButton
+						<Follow
 							isFollowing={isFollowing}
 							class="profile-button"
 							placeholder={isFollowing ? "Followed" : "Follow"}
