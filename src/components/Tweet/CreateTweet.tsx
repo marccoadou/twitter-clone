@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import DefaultUserIcon from "../../img/default_profile_400x400.png";
 import { Button, Form, Image } from "react-bootstrap";
 import "../../styles/create-tweet.scss";
-import { useAppContext } from "../../utils/AppContext";
+import { useAppContext } from "../UtilsComponent/AppContext";
 import { useMutation } from "@apollo/client";
-import { ADD_TWEET } from "../../utils/ApolloRequest";
+import { ADD_TWEET } from "../UtilsComponent/ApolloRequest";
 
 export const CreateTweet = () => {
 	const { state, dispatch } = useAppContext();

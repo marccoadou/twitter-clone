@@ -6,9 +6,9 @@ import { ContextBar } from "./Navigation/ContextBar";
 import { Header } from "./Navigation/Header";
 import { AdditionalContent } from "./RecommendedContent/AdditionalContent";
 import { CreateTweet } from "./Tweet/CreateTweet";
-import { useAppContext } from "../utils/AppContext";
+import { useAppContext } from "./UtilsComponent/AppContext";
 import { useRouteMatch } from "react-router";
-import { GET_USER_INFO } from "../utils/ApolloRequest";
+import { GET_USER_INFO } from "./UtilsComponent/ApolloRequest";
 import { useQuery } from "@apollo/client";
 import { Loader } from "./Spinner";
 

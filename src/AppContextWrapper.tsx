@@ -3,9 +3,9 @@ import "./styles/index.scss";
 import React from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, from } from "@apollo/client";
 
-import { AppContext, defaultUser } from "./utils/AppContext";
+import { AppContext, defaultUser } from "./components/UtilsComponent/AppContext";
 import { useImmerReducer } from "use-immer";
-import { appReducer } from "./utils/AppReducer";
+import { appReducer } from "./components/UtilsComponent/AppReducer";
 import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
 

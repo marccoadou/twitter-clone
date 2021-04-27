@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { ADD_LIKE, REMOVE_LIKE } from "../../../utils/ApolloRequest";
-import { useAppContext } from "../../../utils/AppContext";
+import { ADD_LIKE, REMOVE_LIKE } from "../../UtilsComponent/ApolloRequest";
+import { useAppContext } from "../../UtilsComponent/AppContext";
 
 interface Props {
 	id: string;

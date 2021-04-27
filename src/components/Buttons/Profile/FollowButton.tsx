@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect } from "react";
-import { FOLLOW } from "../../../utils/ApolloRequest";
-import { useAppContext } from "../../../utils/AppContext";
+import { FOLLOW } from "../../UtilsComponent/ApolloRequest";
+import { useAppContext } from "../../UtilsComponent/AppContext";
 
 interface Props {
 	class: string;
@@ -13,15 +13,6 @@ export const FollowButton: React.FC<Props> = (props) => {
 	const [followUser, { data }] = useMutation(FOLLOW);
 	const { state, dispatch } = useAppContext();
 	const follow = () => {
-		followUser({
-			variables: {
-				userHandle: state.user.userHandle,
-				toFollowUserHandle: props.toFollowUserHandle,
-			},
-		});
-	};
-
-	const unfollow = () => {
 		followUser({
 			variables: {
 				userHandle: state.user.userHandle,

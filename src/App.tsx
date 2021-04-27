@@ -2,15 +2,16 @@ import "./styles/index.scss";
 import "./styles/buttons.scss";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Main } from "./components/Main";
-import { useAppContext } from "./utils/AppContext";
+import { useAppContext } from "./components/UtilsComponent/AppContext";
 import { Login } from "./components/Authentification/Login";
 import { SignUp } from "./components/Authentification/SignUp";
 import { useEffect } from "react";
-import { PrivateRoute } from "./components/Profile/PrivateRoute";
+import { PrivateRoute } from "./components/Routing/PrivateRoute";
 import { NotFound } from "./components/UtilsComponent/NotFound";
-import { GET_USER_INFO } from "./utils/ApolloRequest";
+import { GET_USER_INFO } from "./components/UtilsComponent/ApolloRequest";
 import { useLazyQuery } from "@apollo/client";
 import { Loader } from "./components/Spinner";
+// import { Home } from "./components/Home";
 
 export const App = () => {
 	const [getInfo, { data, loading }] = useLazyQuery(GET_USER_INFO);
