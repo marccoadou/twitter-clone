@@ -16,7 +16,7 @@ const client = new ApolloClient({
 		addTypename: true,
 		typePolicies: {
 			User: {
-				// keyFields: [["id"]],
+				keyFields: [["id", "userHandle", ["id"]]],
 				merge: false,
 			},
 			Tweet: {

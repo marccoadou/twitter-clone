@@ -22,7 +22,6 @@ export const Profile: React.FC<Props> = ({ user }) => {
 			setIsFollowing(false);
 		}
 	}, [profileUrl, state.user.following]);
-	console.log(state.user.following);
 	const foreignProfile = state.user.userHandle !== profileUrl;
 	return (
 		<>

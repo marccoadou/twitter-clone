@@ -1,8 +1,21 @@
 import { gql } from "@apollo/client";
 
-export const GET_TWEETS = gql`
+export const GET_USER_INFO = gql`
 	query getUser($userHandle: String!) {
 		user(userHandle: $userHandle) {
+			id
+			username
+			userHandle
+			credentials {
+				email
+				password
+			}
+			userStats {
+				totalLikes
+				totalRetweets
+				totalComments
+			}
+			following
 			tweets {
 				id
 				userHandle
@@ -28,26 +41,6 @@ export const GET_TWEETS = gql`
 					commentsNbr
 				}
 			}
-		}
-	}
-`;
-
-export const GET_USER_INFO = gql`
-	query getUser($userHandle: String!) {
-		user(userHandle: $userHandle) {
-			id
-			username
-			userHandle
-			credentials {
-				email
-				password
-			}
-			userStats {
-				totalLikes
-				totalRetweets
-				totalComments
-			}
-			following
 		}
 	}
 `;
@@ -131,7 +124,7 @@ export const ADD_LIKE = gql`
 	}
 `;
 export const REMOVE_LIKE = gql`
-	mutation addLike($userHandle: String!, $id: String!) {
+	mutation removeLike($userHandle: String!, $id: String!) {
 		removeLike(userHandle: $userHandle, id: $id) {
 			id
 			userHandle

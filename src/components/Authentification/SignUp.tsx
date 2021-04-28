@@ -5,7 +5,7 @@ import "../../styles/connect.scss";
 import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
 
-import { ADD_USER } from "../../utils/ApolloRequest";
+import { ADD_USER } from "../UtilsComponent/ApolloRequest";
 
 export const SignUp = withRouter(({ history }) => {
 	const [addUser, { data }] = useMutation(ADD_USER);
@@ -42,9 +42,6 @@ export const SignUp = withRouter(({ history }) => {
 		}
 	};
 
-	// console.log(
-	// 	`username: ${username}\nemail: ${email}\nuserHandle: ${userHandle}\npassword: ${password}`
-	// );
 	useEffect(() => {
 		if (data?.addUser.credentials?.email) {
 			history.push("/login");

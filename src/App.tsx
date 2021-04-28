@@ -10,11 +10,10 @@ import { PrivateRoute } from "./components/Routing/PrivateRoute";
 import { NotFound } from "./components/UtilsComponent/NotFound";
 import { GET_USER_INFO } from "./components/UtilsComponent/ApolloRequest";
 import { useLazyQuery } from "@apollo/client";
-import { Loader } from "./components/Spinner";
 // import { Home } from "./components/Home";
 
 export const App = () => {
-	const [getInfo, { data, loading }] = useLazyQuery(GET_USER_INFO);
+	const [getInfo, { data }] = useLazyQuery(GET_USER_INFO, { fetchPolicy: "no-cache" });
 	const { state, dispatch } = useAppContext();
 	useEffect(() => {
 		if (state.user.username === "") {
@@ -28,17 +27,11 @@ export const App = () => {
 
 	useEffect(() => {
 		if (data?.user) {
-			console.log(data.user);
 			dispatch({ type: "SET_USER", value: data.user });
 			dispatch({ type: "LOGIN" });
 		}
 	}, [data?.user, dispatch, getInfo]);
-	if (loading)
-		return (
-			<>
-				<Loader />
-			</>
-		);
+
 	return (
 		<Router>
 			<Switch>

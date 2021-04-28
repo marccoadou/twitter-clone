@@ -1,7 +1,7 @@
 import "../styles/main.scss";
-import React from "react";
+import React, { useEffect } from "react";
 import { Profile } from "./Profile/Profile";
-import { ProfileFeed } from "./Profile/ProfileFeed";
+import { TweetFeed } from "./Tweet/TweetFeed";
 import { ContextBar } from "./Navigation/ContextBar";
 import { Header } from "./Navigation/Header";
 import { AdditionalContent } from "./RecommendedContent/AdditionalContent";
@@ -16,15 +16,13 @@ export const Main: React.FC = () => {
 	const { state } = useAppContext();
 	let { url } = useRouteMatch();
 
-	const { data, error, loading } = useQuery(GET_USER_INFO, {
+	const { data, error, refetch } = useQuery(GET_USER_INFO, {
 		variables: { userHandle: url.slice(9) },
 	});
-	if (loading)
-		return (
-			<div className="center-loader">
-				<Loader />
-			</div>
-		);
+	useEffect(() => {
+		refetch();
+	}, [refetch, state.refreshFeed, url]);
+
 	if (error) return <div>{error.message}</div>;
 	return (
 		<div className="main-columns">
@@ -35,10 +33,12 @@ export const Main: React.FC = () => {
 				<div>
 					<ContextBar user={data?.user} />
 					<Profile user={data?.user} />
-					<ProfileFeed user={data?.user} />
+					<TweetFeed tweets={data?.user.tweets} />
 				</div>
 			) : (
-				<Loader />
+				<div className="center-loader">
+					<Loader />
+				</div>
 			)}
 			<div>
 				<AdditionalContent />
