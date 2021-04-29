@@ -21,6 +21,7 @@
 		"eslint-plugin-immer-reducer": "^0.1.1",
 		"express": "^4.17.1",
 		"firebase": "^8.4.1",
+		"firebase-admin": "^9.7.0",
 		"graphql": "^15.5.0",
 		"immer": "^9.0.1",
 		"password-hash": "^1.2.2",

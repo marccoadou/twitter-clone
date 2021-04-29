@@ -15,10 +15,10 @@ const client = new ApolloClient({
 	cache: new InMemoryCache({
 		addTypename: true,
 		typePolicies: {
-			User: {
-				keyFields: [["id", "userHandle", ["id"]]],
-				merge: false,
-			},
+			// User: {
+			// 	keyFields: [["id", "userHandle", ["id"]]],
+			// 	merge: false,
+			// },
 			Tweet: {
 				keyFields: ["id"],
 			},

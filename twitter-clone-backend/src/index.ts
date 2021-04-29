@@ -1,4 +1,5 @@
 import { followUser } from "./imports/Resolvers/FollowResolvers/Follow";
+import { userFeed } from "./imports/Resolvers/FeedResolver/FeedResolver";
 import { unfollowUser } from "./imports/Resolvers/FollowResolvers/Unfollow";
 import { tweetRemoveLike } from "./imports/Resolvers/TweetStatsResolvers/TweetRemoveLike";
 import { resolvers } from "./imports/Resolvers/resolvers";
@@ -24,6 +25,7 @@ const typeDefs = gql`
 		tweet(id: ID!): Tweet
 		user(userHandle: String!): User
 		checkUser(email: String!, password: String!): ValidUser
+		userFeed(following: [String]!): [Tweet]!
 	}
 
 	type Mutation {
@@ -52,7 +54,8 @@ const server = new ApolloServer({
 		tweetAddLike,
 		tweetRemoveLike,
 		followUser,
-		unfollowUser
+		unfollowUser,
+		userFeed
 	),
 });
 

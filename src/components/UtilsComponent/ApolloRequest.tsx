@@ -44,6 +44,7 @@ export const GET_USER_INFO = gql`
 		}
 	}
 `;
+
 export const FOLLOW = gql`
 	mutation followUser($userHandle: String!, $toFollowUserHandle: String!) {
 		followUser(userHandle: $userHandle, toFollowUserHandle: $toFollowUserHandle)
@@ -193,6 +194,36 @@ export const CHECK_USER = gql`
 					totalRetweets
 					totalComments
 				}
+			}
+		}
+	}
+`;
+
+export const USER_FEED = gql`
+	query userFeed($following: [String]!) {
+		userFeed(following: $following) {
+			id
+			userHandle
+			text
+			createdAt
+			user {
+				id
+				username
+				userHandle
+			}
+			statistics {
+				likes
+				likesList
+				comments {
+					id
+					user {
+						userHandle
+					}
+					text
+				}
+				retweets
+				commentsList
+				commentsNbr
 			}
 		}
 	}

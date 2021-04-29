@@ -20,7 +20,9 @@ export const Header = withRouter(({ history }) => {
 						<i className="fas fa-crow logo"></i>
 					</li>
 					<li>
-						<i className="fas fa-home"></i> Home
+						<Link to="/home">
+							<i className="fas fa-home"></i> Home
+						</Link>
 					</li>
 					<li>
 						<i className="fas fa-hashtag"></i> Explore

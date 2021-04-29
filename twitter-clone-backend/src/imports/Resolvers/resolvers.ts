@@ -8,20 +8,13 @@ export const resolvers = {
 				const userTweets = await exportAdmin
 					.firestore()
 					.collection("tweets")
+					.orderBy("createdAt", "desc")
 					.where("userHandle", "==", user.userHandle)
 					.get();
 				const tweets = userTweets.docs.map((tweet) => tweet.data());
-				tweets.forEach((tweet) => {
-					tweet.createdAt = tweet.createdAt.toDate();
-				});
-				console.log(tweets);
-				tweets.sort((a, b) => {
-					return a.createdAt - b.createdAt;
-				});
-				tweets.forEach((tweet) => {
-					tweet.createdAt = tweet.createdAt.toString();
-				});
-				return tweets.reverse();
+
+				const tweetsToDate = toDateTweets(tweets);
+				return tweetsToDate;
 			} catch (error) {
 				throw new ApolloError(error);
 			}
@@ -37,4 +30,11 @@ export const resolvers = {
 			}
 		},
 	},
+};
+
+export const toDateTweets = (tweets) => {
+	tweets.forEach((tweet) => {
+		tweet.createdAt = tweet.createdAt.toDate().toString();
+	});
+	return tweets;
 };

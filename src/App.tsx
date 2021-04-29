@@ -1,16 +1,20 @@
 import "./styles/index.scss";
 import "./styles/buttons.scss";
+import "./styles/main.scss";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import { Main } from "./components/Main";
+import { Profile } from "./components/Profile/Profile";
 import { useAppContext } from "./components/UtilsComponent/AppContext";
 import { Login } from "./components/Authentification/Login";
 import { SignUp } from "./components/Authentification/SignUp";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { PrivateRoute } from "./components/Routing/PrivateRoute";
 import { NotFound } from "./components/UtilsComponent/NotFound";
 import { GET_USER_INFO } from "./components/UtilsComponent/ApolloRequest";
 import { useLazyQuery } from "@apollo/client";
-// import { Home } from "./components/Home";
+import { Home } from "./components/Home";
+import { AdditionalContent } from "./components/RecommendedContent/AdditionalContent";
+import { Header } from "./components/Navigation/Header";
+import { CreateTweet } from "./components/Tweet/CreateTweet";
 
 export const App = () => {
 	const [getInfo, { data }] = useLazyQuery(GET_USER_INFO, { fetchPolicy: "no-cache" });
@@ -38,9 +42,26 @@ export const App = () => {
 				<Route path="/" exact>
 					<Redirect to="/home" />
 				</Route>
-				<PrivateRoute component={Main} exact={true} path="/profile/:id" redirectPath="/login" />
-				<Route path="/signup" exact component={SignUp} />
-				<Route path="/login" exact component={Login} />
+				<div className="main-columns">
+					<div>
+						<Header />
+					</div>
+					<div>
+						<PrivateRoute
+							component={Profile}
+							exact={true}
+							path="/profile/:id"
+							redirectPath="/login"
+						/>
+						<Route path="/login" exact component={Login} />
+						<Route path="/signup" exact component={SignUp} />
+						<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
+					</div>
+					<div>
+						<AdditionalContent />
+					</div>
+					{state.isCreatingTweet ? <CreateTweet /> : null}
+				</div>
 				<Route path="/" component={NotFound} />
 			</Switch>
 		</Router>

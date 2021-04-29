@@ -1,63 +1,39 @@
-import React, { useEffect, useState } from "react";
-import DefaultProfilePic from "../../img/default_profile_400x400.png";
-import DefaultCoverPic from "../../img/mountain.jpg";
-import { Image } from "react-bootstrap";
-import "../../styles/profile.scss";
-import { useRouteMatch } from "react-router";
+import React, { useEffect } from "react";
+import { UserProfile } from "./UserProfile";
+import { TweetFeed } from "../Tweet/TweetFeed";
+import { ContextBar } from "../Navigation/ContextBar";
 import { useAppContext } from "../UtilsComponent/AppContext";
-import { Follow } from "../Buttons/Profile/Follow";
-interface Props {
-	user: UserType;
-}
+import { useRouteMatch } from "react-router";
+import { GET_USER_INFO } from "../UtilsComponent/ApolloRequest";
+import { useQuery } from "@apollo/client";
+import { Loader } from "../Spinner";
 
-export const Profile: React.FC<Props> = ({ user }) => {
-	let { url } = useRouteMatch();
+export const Profile: React.FC = () => {
 	const { state } = useAppContext();
-	const profileUrl = url.slice(9);
-	const [isFollowing, setIsFollowing] = useState(state?.user?.following?.includes(profileUrl));
+	let { url } = useRouteMatch();
+
+	const { data, error, refetch } = useQuery(GET_USER_INFO, {
+		variables: { userHandle: url.slice(9) },
+		pollInterval: 5000,
+	});
 	useEffect(() => {
-		if (state?.user?.following?.includes(profileUrl)) {
-			setIsFollowing(true);
-		} else {
-			setIsFollowing(false);
-		}
-	}, [profileUrl, state.user.following]);
-	const foreignProfile = state.user.userHandle !== profileUrl;
+		refetch();
+	}, [refetch, state.refreshFeed, url]);
+
+	if (error) return <div>{error.message}</div>;
 	return (
-		<>
-			<div className="profile">
-				<div className="profile-pictures">
-					<Image src={DefaultCoverPic} className="cover-pic" />
-					<Image src={DefaultProfilePic} roundedCircle className="profile-pic" />
-					{foreignProfile ? (
-						<Follow
-							isFollowing={isFollowing}
-							class="profile-button"
-							placeholder={isFollowing ? "Followed" : "Follow"}
-							toFollowUserHandle={profileUrl}
-						/>
-					) : (
-						<button className="profile-button">Set up profile</button>
-					)}
+		<div>
+			{data?.user ? (
+				<div>
+					<ContextBar user={data?.user} />
+					<UserProfile user={data?.user} />
+					<TweetFeed tweets={data?.user.tweets} />
 				</div>
-				<div className="profile-info">
-					<h4>{user?.username}</h4>
-					<small className="small-dark">@{user?.userHandle}</small>
-					<p className="small-dark">
-						<i className="far fa-calendar-alt"></i> Joined date
-					</p>
-					<div>
-						<p>{}12 Following</p>
-						<p>{}12 Followers</p>
-					</div>
+			) : (
+				<div className="center-loader">
+					<Loader />
 				</div>
-				<div className="personal-category">
-					<button>Tweets</button>
-					<button>Tweets & replies</button>
-					<button>Media</button>
-					<button>Likes</button>
-				</div>
-			</div>
-		</>
+			)}
+		</div>
 	);
 };
