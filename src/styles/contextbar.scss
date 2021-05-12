@@ -1,26 +1,27 @@
 .context-bar {
 	position: sticky;
+	top: 0;
+	width: 100%;
 	background-color: var(--background-color);
 	display: flex;
-	// width: 33.3333%;
 	flex-flow: row nowrap;
 	align-items: flex-start;
-	border: var(--border);
-	border-top: none;
-	border-bottom: none;
+	border-bottom: var(--border);
 	padding: 0.5em;
 	z-index: 99;
 	h4 {
 		margin: 0;
 	}
-	i {
-		font-size: 2em;
-		margin-left: 0.3em;
+	svg {
+		margin-left: 1em;
 	}
 	.profile-context {
 		margin: 0;
 		margin-left: 2em;
 		display: flex;
 		flex-flow: column nowrap;
+	}
+	.user-img {
+		margin-left: 0.7rem;
 	}
 }

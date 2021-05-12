@@ -3,6 +3,7 @@ type AppContextType = {
 	isLoggedIn: boolean;
 	isCreatingTweet: boolean;
 	refreshFeed: boolean;
+	sideBar: boolean;
 };
 
 type UserType = {

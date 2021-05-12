@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { UserProfile } from "./UserProfile";
 import { TweetFeed } from "../Tweet/TweetFeed";
 import { ContextBar } from "../Navigation/ContextBar";
-import { useAppContext } from "../UtilsComponent/AppContext";
+import { useAppContext } from "../lib/AppContext";
 import { useRouteMatch } from "react-router";
-import { GET_USER_INFO } from "../UtilsComponent/ApolloRequest";
+import { GET_USER_INFO } from "../lib/ApolloRequest";
 import { useQuery } from "@apollo/client";
 import { Loader } from "../Spinner";
 
@@ -14,7 +14,7 @@ export const Profile: React.FC = () => {
 
 	const { data, error, refetch } = useQuery(GET_USER_INFO, {
 		variables: { userHandle: url.slice(9) },
-		pollInterval: 5000,
+		// pollInterval: 5000,
 	});
 	useEffect(() => {
 		refetch();
@@ -25,7 +25,7 @@ export const Profile: React.FC = () => {
 		<div>
 			{data?.user ? (
 				<div>
-					<ContextBar user={data?.user} />
+					<ContextBar />
 					<UserProfile user={data?.user} />
 					<TweetFeed tweets={data?.user.tweets} />
 				</div>

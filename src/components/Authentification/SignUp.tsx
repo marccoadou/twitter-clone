@@ -5,7 +5,7 @@ import "../../styles/connect.scss";
 import { useMutation } from "@apollo/client";
 import * as EmailValidator from "email-validator";
 
-import { ADD_USER } from "../UtilsComponent/ApolloRequest";
+import { ADD_USER } from "../lib/ApolloRequest";
 
 export const SignUp = withRouter(({ history }) => {
 	const [addUser, { data }] = useMutation(ADD_USER);

@@ -3,13 +3,13 @@ import "./styles/buttons.scss";
 import "./styles/main.scss";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Profile } from "./components/Profile/Profile";
-import { useAppContext } from "./components/UtilsComponent/AppContext";
+import { useAppContext } from "./components/lib/AppContext";
 import { Login } from "./components/Authentification/Login";
 import { SignUp } from "./components/Authentification/SignUp";
 import React, { useEffect } from "react";
 import { PrivateRoute } from "./components/Routing/PrivateRoute";
-import { NotFound } from "./components/UtilsComponent/NotFound";
-import { GET_USER_INFO } from "./components/UtilsComponent/ApolloRequest";
+import { NotFound } from "./components/lib/NotFound";
+import { GET_USER_INFO } from "./components/lib/ApolloRequest";
 import { useLazyQuery } from "@apollo/client";
 import { Home } from "./components/Home";
 import { AdditionalContent } from "./components/RecommendedContent/AdditionalContent";
@@ -42,26 +42,11 @@ export const App = () => {
 				<Route path="/" exact>
 					<Redirect to="/home" />
 				</Route>
-				<div className="main-columns">
-					<div>
-						<Header />
-					</div>
-					<div>
-						<PrivateRoute
-							component={Profile}
-							exact={true}
-							path="/profile/:id"
-							redirectPath="/login"
-						/>
-						<Route path="/login" exact component={Login} />
-						<Route path="/signup" exact component={SignUp} />
-						<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
-					</div>
-					<div>
-						<AdditionalContent />
-					</div>
-					{state.isCreatingTweet ? <CreateTweet /> : null}
-				</div>
+				<PrivateRoute component={Profile} exact={true} path="/profile/:id" redirectPath="/login" />
+				<Route path="/login" exact component={Login} />
+				<Route path="/signup" exact component={SignUp} />
+				<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
+				<Route path="/compose/tweet" exact={true} component={CreateTweet} />
 				<Route path="/" component={NotFound} />
 			</Switch>
 		</Router>

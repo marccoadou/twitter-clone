@@ -2,10 +2,11 @@ import "../../styles/tweet.scss";
 import React from "react";
 import { Media, Image } from "react-bootstrap";
 import DefaultUserIcon from "../../img/default_profile_400x400.png";
-import { LikeButton } from "../Buttons/Tweet/LikeButton";
-import { CommentButton } from "../Buttons/Tweet/CommentButton";
-import { RetweetButton } from "../Buttons/Tweet/RetweetButton";
-import { ShareButton } from "../Buttons/Tweet/ShareButton";
+import { LikeButton } from "../Buttons/Tweet/TweetStats/LikeButton";
+import { CommentButton } from "../Buttons/Tweet/TweetStats/CommentButton";
+import { RetweetButton } from "../Buttons/Tweet/TweetStats/RetweetButton";
+import { ShareButton } from "../Buttons/Tweet/TweetStats/ShareButton";
+import { Link } from "react-router-dom";
 
 export const Tweet: React.FunctionComponent<TweetType> = ({
 	id,
@@ -21,7 +22,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 				<Image
 					width={48}
 					height={48}
-					className="mr-3"
+					className="mr-3 user-img"
 					src={DefaultUserIcon}
 					alt="Generic placeholder"
 					roundedCircle
@@ -29,11 +30,18 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 				<Media.Body>
 					<div className="tweet-user">
 						<h6>{user?.username}</h6>
-						<small>@{userHandle}</small>
-						<small>{createdAt.slice(4, 25)}</small>
+
 						<a href="_" className="more-button">
 							<i className="fas fa-ellipsis-h"></i>
 						</a>
+					</div>
+					<div className="tweet-info">
+						<small>
+							<Link to={`/profile/${userHandle}`} className="no-hyperlink">
+								@{userHandle}
+							</Link>
+						</small>
+						<small>{createdAt.slice(4, 15)}</small>
 					</div>
 					<p>{text}</p>
 					<div className="tweet-icons">

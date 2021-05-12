@@ -4,7 +4,7 @@ import DefaultCoverPic from "../../img/mountain.jpg";
 import { Image } from "react-bootstrap";
 import "../../styles/profile.scss";
 import { useRouteMatch } from "react-router";
-import { useAppContext } from "../UtilsComponent/AppContext";
+import { useAppContext } from "../lib/AppContext";
 import { Follow } from "../Buttons/Profile/Follow";
 
 interface Props {

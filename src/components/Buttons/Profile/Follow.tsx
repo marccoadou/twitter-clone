@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useWindowSize } from "../../lib/hooks";
 import { FollowButton } from "./FollowButton";
 import { UnfollowButton } from "./UnfollowButton";
 interface Props {
@@ -9,16 +10,24 @@ interface Props {
 }
 
 export const Follow: React.FC<Props> = (props) => {
-	const [mouseOver, setMouseOver] = useState(false);
+	const windowSize = useWindowSize();
+	const [hover, setHover] = useState(false);
+
 	return (
 		<div
 			onMouseEnter={() => {
-				setMouseOver(true);
+				setHover(true);
 			}}
 			onMouseLeave={() => {
-				setMouseOver(false);
+				setHover(false);
+			}}
+			onTouchStart={() => {
+				setHover(true);
+			}}
+			onTouchEnd={() => {
+				setHover(false);
 			}}>
-			{mouseOver && props.isFollowing ? (
+			{hover && props.isFollowing ? (
 				<UnfollowButton class={props.class} toFollowUserHandle={props.toFollowUserHandle} />
 			) : (
 				<FollowButton

@@ -1,20 +1,32 @@
 import React from "react";
+import { withRouter } from "react-router";
 import "../../styles/contextbar.scss";
+import { ArrowLeft } from "react-bootstrap-icons";
+import { StateUserPicture } from "../Profile/StateUserPicture";
+import { useAppContext } from "../lib/AppContext";
 
-interface Props {
-	user: UserType;
-}
-
-export const ContextBar: React.FC<Props> = (props) => {
+export const ContextBar = withRouter(({ location, history }) => {
+	const { dispatch } = useAppContext();
+	const onClick = () => {
+		history.goBack();
+	};
+	const openMenu = () => {
+		dispatch({ type: "SIDEBAR_OPEN" });
+	};
 	return (
 		<div className="context-bar">
-			<a href="_">
-				<i className="fas fa-long-arrow-alt-left"></i>
-			</a>
+			{location.pathname.includes("home") ? (
+				<div onClick={openMenu}>
+					<StateUserPicture width={40} height={40} className="user-img" />
+				</div>
+			) : (
+				<a onClick={onClick}>
+					<ArrowLeft width="1.3rem" height="auto" />
+				</a>
+			)}
 			<div className="profile-context">
-				<h4>{props?.user?.userHandle}</h4>
-				<small> {props?.user?.userStats.totalRetweets} Tweets</small>
+				<h4 className="capitalize-first">{location.pathname.slice(1)}</h4>
 			</div>
 		</div>
 	);
-};
+});

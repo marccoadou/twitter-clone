@@ -3,9 +3,9 @@ import "./styles/index.scss";
 import React from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, from } from "@apollo/client";
 
-import { AppContext, defaultUser } from "./components/UtilsComponent/AppContext";
+import { AppContext, defaultUser } from "./components/lib/AppContext";
 import { useImmerReducer } from "use-immer";
-import { appReducer } from "./components/UtilsComponent/AppReducer";
+import { appReducer } from "./components/lib/AppReducer";
 import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
 
@@ -33,6 +33,7 @@ function AppContextWrapper() {
 		isLoggedIn: false,
 		refreshFeed: false,
 		user: defaultUser,
+		sideBar: false,
 	});
 
 	return (

@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect } from "react";
-import { UNFOLLOW } from "../../UtilsComponent/ApolloRequest";
-import { useAppContext } from "../../UtilsComponent/AppContext";
+import { UNFOLLOW } from "../../lib/ApolloRequest";
+import { useAppContext } from "../../lib/AppContext";
 
 interface Props {
 	class: string;

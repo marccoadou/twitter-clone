@@ -1,7 +1,8 @@
 import { useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { ADD_LIKE, REMOVE_LIKE } from "../../UtilsComponent/ApolloRequest";
-import { useAppContext } from "../../UtilsComponent/AppContext";
+import { ADD_LIKE, REMOVE_LIKE } from "../../../lib/ApolloRequest";
+import { useAppContext } from "../../../lib/AppContext";
+import { Heart, HeartFill } from "react-bootstrap-icons";
 
 interface Props {
 	id: string;
@@ -39,7 +40,7 @@ export const LikeButton: React.FC<Props> = ({ id, statistics }) => {
 	return (
 		<>
 			<div className="like-icon" onClick={userLiked ? removeLike : addLike}>
-				<i className={userLiked ? "fas fa-heart" : "far fa-heart"}></i>
+				{userLiked ? <HeartFill fill="#d62929e5" /> : <Heart />}
 				<span className="numbers"> {statistics.likes}</span>
 			</div>
 		</>

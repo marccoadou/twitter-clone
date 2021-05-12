@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLazyQuery } from "@apollo/client";
-import { useAppContext } from "../UtilsComponent/AppContext";
-import { CHECK_USER } from "../UtilsComponent/ApolloRequest";
+import { useAppContext } from "../lib/AppContext";
+import { CHECK_USER } from "../lib/ApolloRequest";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 interface IProps extends RouteComponentProps<any> {}

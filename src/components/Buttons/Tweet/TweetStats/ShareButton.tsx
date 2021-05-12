@@ -1,4 +1,5 @@
 import React from "react";
+import { Share } from "react-bootstrap-icons";
 
 interface Props {
 	id: string;
@@ -8,7 +9,7 @@ export const ShareButton: React.FC<Props> = () => {
 	return (
 		<>
 			<div className="share-icon">
-				<i className="fas fa-share"></i>
+				<Share />
 			</div>
 		</>
 	);

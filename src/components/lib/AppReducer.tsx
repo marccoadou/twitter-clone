@@ -26,6 +26,12 @@ export const appReducer = (state: AppContextType, action: { type: any; value: an
 		case "REFRESH_FEED_TOGGLE":
 			state.refreshFeed = !state.refreshFeed;
 			break;
+		case "SIDEBAR_OPEN":
+			state.sideBar = true;
+			break;
+		case "SIDEBAR_CLOSE":
+			state.sideBar = false;
+			break;
 		default:
 			return state;
 	}
