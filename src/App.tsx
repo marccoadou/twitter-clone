@@ -15,6 +15,7 @@ import { Home } from "./components/Home";
 import { AdditionalContent } from "./components/RecommendedContent/AdditionalContent";
 import { Header } from "./components/Navigation/Header";
 import { CreateTweet } from "./components/Tweet/CreateTweet";
+import { TweetIndividual } from "./components/Tweet/TweetIndividual";
 
 export const App = () => {
 	const [getInfo, { data }] = useLazyQuery(GET_USER_INFO, { fetchPolicy: "no-cache" });
@@ -42,11 +43,12 @@ export const App = () => {
 				<Route path="/" exact>
 					<Redirect to="/home" />
 				</Route>
-				<PrivateRoute component={Profile} exact={true} path="/profile/:id" redirectPath="/login" />
+				<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
+				<PrivateRoute component={Profile} exact={true} path="/:id" redirectPath="/login" />
 				<Route path="/login" exact component={Login} />
 				<Route path="/signup" exact component={SignUp} />
-				<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
 				<Route path="/compose/tweet" exact={true} component={CreateTweet} />
+				<Route path="/tweet/:id" exact component={TweetIndividual} />
 				<Route path="/" component={NotFound} />
 			</Switch>
 		</Router>

@@ -43,7 +43,9 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 						</small>
 						<small>{createdAt.slice(4, 15)}</small>
 					</div>
-					<p>{text}</p>
+					<Link to={`/tweet/${id}`}>
+						<p>{text}</p>
+					</Link>
 					<div className="tweet-icons">
 						<CommentButton id={id} statistics={statistics} />
 						<RetweetButton id={id} statistics={statistics} />

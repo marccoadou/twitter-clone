@@ -69,7 +69,7 @@ export const ADD_TWEET = gql`
 
 export const GET_TWEET = gql`
 	query getTweet($id: ID!) {
-		getTweet(id: $id) {
+		tweet(id: $id) {
 			id
 			userHandle
 			text
@@ -81,13 +81,6 @@ export const GET_TWEET = gql`
 			statistics {
 				likes
 				likesList
-				comments {
-					id
-					user {
-						userHandle
-					}
-					text
-				}
 				retweets
 				commentsList
 				commentsNbr

@@ -14,7 +14,7 @@ interface Props {
 export const UserProfile: React.FC<Props> = ({ user }) => {
 	let { url } = useRouteMatch();
 	const { state } = useAppContext();
-	const profileUrl = url.slice(9);
+	const profileUrl = url.slice(1);
 	const [isFollowing, setIsFollowing] = useState(state?.user?.following?.includes(profileUrl));
 	useEffect(() => {
 		if (state?.user?.following?.includes(profileUrl)) {

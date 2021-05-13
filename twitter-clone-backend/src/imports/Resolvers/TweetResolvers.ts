@@ -2,6 +2,7 @@ import { exportAdmin } from "../../index";
 import * as LocalAdmin from "firebase-admin";
 import { ApolloError } from "@apollo/client";
 import uniqid = require("uniqid");
+import { toDateTweets } from "./resolvers";
 
 const defaultStats = {
 	likes: 0,
@@ -20,10 +21,20 @@ export const tweetResolvers = {
 			return tweets.docs.map((tweet) => tweet.data());
 		},
 		async tweet(_, args) {
-			const tweetData = await exportAdmin.firestore().collection("tweets").doc(`${args.id}`).get();
-			const tweet = tweetData.data();
-			tweet.createdAt = tweet.createdAt.toDate().toString();
-			return tweet;
+			const tweetData = await exportAdmin
+				.firestore()
+				.collection("tweets")
+				.doc(`${args.id}`)
+				.get()
+				.then((tweet) => {
+					const tweetToDate = toDateTweets(tweet);
+					console.log(tweetToDate);
+					return tweetToDate;
+				})
+				.catch((error) => {
+					return error;
+				});
+			return tweetData;
 		},
 	},
 	Mutation: {

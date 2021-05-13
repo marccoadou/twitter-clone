@@ -40,7 +40,7 @@ export const Header = withRouter(({ history }) => {
 						<i className="far fa-list-alt"></i> Lists
 					</li>
 					<li>
-						<Link to={`/profile/${state.user.userHandle}`}>
+						<Link to={`/${state.user.userHandle}`}>
 							<i className="fas fa-user"></i> Profile
 						</Link>
 					</li>
@@ -48,7 +48,9 @@ export const Header = withRouter(({ history }) => {
 						<i className="fas fa-ellipsis-h"></i> More
 					</li>
 					<li>
-						<Button onClick={openTweetCreator}>Tweet</Button>
+						<Link to="/compose/tweet">
+							<Button>Tweet</Button>
+						</Link>
 					</li>
 					<UserChanger />
 				</nav>

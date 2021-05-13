@@ -13,7 +13,7 @@ export const Profile: React.FC = () => {
 	let { url } = useRouteMatch();
 
 	const { data, error, refetch } = useQuery(GET_USER_INFO, {
-		variables: { userHandle: url.slice(9) },
+		variables: { userHandle: url.slice(1) },
 		// pollInterval: 5000,
 	});
 	useEffect(() => {
