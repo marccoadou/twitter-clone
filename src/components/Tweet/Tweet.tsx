@@ -37,7 +37,7 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 					</div>
 					<div className="tweet-info">
 						<small>
-							<Link to={`/profile/${userHandle}`} className="no-hyperlink">
+							<Link to={`/${userHandle}`} className="no-hyperlink">
 								@{userHandle}
 							</Link>
 						</small>

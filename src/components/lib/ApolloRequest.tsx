@@ -221,3 +221,33 @@ export const USER_FEED = gql`
 		}
 	}
 `;
+
+export const ADD_COMMENT = gql`
+	mutation addComment($text: String!, $tweetID: String!) {
+		addComment(text: $text, tweetID: $tweetID) {
+			id
+			userHandle
+			text
+			createdAt
+			user {
+				id
+				username
+				userhandle
+			}
+			statistics {
+				likes
+				likesList
+				comments {
+					id
+					user {
+						userHandle
+					}
+					text
+				}
+				retweets
+				commentsList
+				commentsNbr
+			}
+		}
+	}
+`;

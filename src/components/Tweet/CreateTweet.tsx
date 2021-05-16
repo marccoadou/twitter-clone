@@ -6,9 +6,10 @@ import { useAppContext } from "../lib/AppContext";
 import { useMutation } from "@apollo/client";
 import { ADD_TWEET } from "../lib/ApolloRequest";
 import { ArrowLeft } from "react-bootstrap-icons";
-import { withRouter } from "react-router";
+import { useHistory } from "react-router";
 
-export const CreateTweet = withRouter(({ history }) => {
+export const CreateTweet = () => {
+	const history = useHistory();
 	const { state, dispatch } = useAppContext();
 	const [tweetText, setTweetText] = useState("");
 	const [tweetLength, setTweetLength] = useState(0);
@@ -30,10 +31,6 @@ export const CreateTweet = withRouter(({ history }) => {
 	const handleTweetLength = (e: any) => {
 		setTweetText(e.target.value);
 		setTweetLength(e.target.value.length);
-	};
-
-	const closeTweet = () => {
-		dispatch({ type: "TWEET_CLOSE" });
 	};
 
 	return (
@@ -98,4 +95,4 @@ export const CreateTweet = withRouter(({ history }) => {
 			</div>
 		</div>
 	);
-});
+};

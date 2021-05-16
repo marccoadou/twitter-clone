@@ -15,7 +15,8 @@ export const MobileMenu: React.FC<Props> = () => {
 	};
 
 	return (
-		<div className="fullscreen-touch" onClick={closeMenu}>
+		<>
+			<div className="fullscreen-touch" onClick={closeMenu}></div>
 			<div className="mobile-menu">
 				<div className="user">
 					<StateUserPicture className="" />
@@ -46,6 +47,6 @@ export const MobileMenu: React.FC<Props> = () => {
 					</nav>
 				</header>
 			</div>
-		</div>
+		</>
 	);
 };
