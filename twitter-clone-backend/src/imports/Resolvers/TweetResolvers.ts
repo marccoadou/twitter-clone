@@ -63,6 +63,7 @@ export const tweetResolvers = {
 				args.id = uniqid();
 				args.createdAt = LocalAdmin.firestore.Timestamp.now();
 				args.statistics = defaultStats;
+				console.log(args);
 				const newTweet = await exportAdmin
 					.firestore()
 					.collection("tweets")
@@ -83,6 +84,7 @@ export const tweetResolvers = {
 						return tweet.data();
 					})
 					.catch((error) => {
+						console.log(error);
 						return error;
 					});
 				return newComment;

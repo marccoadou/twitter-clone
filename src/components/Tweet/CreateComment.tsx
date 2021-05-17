@@ -1,32 +1,38 @@
-import "../../styles/create-tweet.scss";
-import { useState } from "react";
-import DefaultUserIcon from "../../img/default_profile_400x400.png";
-import { Button } from "react-bootstrap";
-import { useAppContext } from "../lib/AppContext";
 import { useMutation } from "@apollo/client";
-import { ADD_TWEET } from "../lib/ApolloRequest";
+import { useState } from "react";
+import { Button } from "react-bootstrap";
 import { ArrowLeft } from "react-bootstrap-icons";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { ADD_COMMENT } from "../lib/ApolloRequest";
+import DefaultUserIcon from "../../img/default_profile_400x400.png";
+import { useAppContext } from "../lib/AppContext";
 import { TweetForm } from "./TweetForm";
 
-export const CreateTweet = () => {
+interface ParamsProps {
+	id: string;
+}
+
+export const CreateComment = () => {
 	const history = useHistory();
+	const { id } = useParams<ParamsProps>();
 	const { state } = useAppContext();
 	const [tweetText, setTweetText] = useState("");
 	const [tweetLength, setTweetLength] = useState(0);
-	const [addTweet] = useMutation<TweetType>(ADD_TWEET);
+	const [addComment] = useMutation<TweetType>(ADD_COMMENT);
 
-	const handleTweetAdd = (e: any) => {
+	function handleCommentAdd(e: any) {
 		e.preventDefault();
-		addTweet({
+		console.log("we're here");
+		addComment({
 			variables: {
 				text: tweetText,
 				userHandle: state.user.userHandle,
+				tweetID: id,
 			},
 		});
 		setTweetText("");
 		setTweetLength(0);
-	};
+	}
 	const handleTweetLength = (e: any) => {
 		setTweetText(e.target.value);
 		setTweetLength(e.target.value.length);
@@ -41,16 +47,9 @@ export const CreateTweet = () => {
 					history.goBack();
 				}}
 			/>
-			<Button
-				variant="primary"
-				type="submit"
-				className="submit-button"
-				disabled={tweetLength > 0 ? false : true}>
-				Tweet
-			</Button>
 			<TweetForm
 				DefaultUserIcon={DefaultUserIcon}
-				handleTweetAdd={handleTweetAdd}
+				handleTweetAdd={handleCommentAdd}
 				handleTweetLength={handleTweetLength}
 				tweetLength={tweetLength}
 				tweetText={tweetText}

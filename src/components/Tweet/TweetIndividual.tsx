@@ -23,7 +23,6 @@ export const TweetIndividual = () => {
 			</div>
 		);
 	}
-	console.log(data?.tweet);
 	return (
 		<>
 			{data?.tweet && (

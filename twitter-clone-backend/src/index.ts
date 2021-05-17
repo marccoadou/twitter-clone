@@ -41,7 +41,7 @@ const typeDefs = gql`
 		removeLike(userHandle: String!, id: String!): Tweet
 		followUser(userHandle: String!, toFollowUserHandle: String!): Boolean!
 		unfollowUser(userHandle: String!, toFollowUserHandle: String!): Boolean!
-		addComment(text: String!, tweetID: String!): Tweet
+		addComment(text: String!, userHandle: String!, tweetID: String!): Tweet
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;

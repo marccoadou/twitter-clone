@@ -223,8 +223,8 @@ export const USER_FEED = gql`
 `;
 
 export const ADD_COMMENT = gql`
-	mutation addComment($text: String!, $tweetID: String!) {
-		addComment(text: $text, tweetID: $tweetID) {
+	mutation addComment($text: String!, $userHandle: String!, $tweetID: String!) {
+		addComment(text: $text, userHandle: $userHandle, tweetID: $tweetID) {
 			id
 			userHandle
 			text
@@ -232,7 +232,6 @@ export const ADD_COMMENT = gql`
 			user {
 				id
 				username
-				userhandle
 			}
 			statistics {
 				likes
