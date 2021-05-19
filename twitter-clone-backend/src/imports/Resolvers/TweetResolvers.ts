@@ -21,21 +21,39 @@ export const tweetResolvers = {
 			return tweets.docs.map((tweet) => tweet.data());
 		},
 		async tweet(_, args) {
-			console.log(args.id);
-			const tweetData = await exportAdmin
+			let tweetsComments;
+			const tweet = await exportAdmin
 				.firestore()
 				.doc(`tweets/${args.id}`)
 				.get()
-				.then((tweet) => {
+				.then(async (tweet) => {
 					const tweetData = tweet.data();
+					if (tweetData.statistics.commentsList.length) {
+						tweetsComments = await exportAdmin
+							.firestore()
+							.collection("tweets")
+							.where("id", "in", tweetData.statistics.commentsList)
+							.get()
+							.then((tweets) => {
+								const tweetToDate = toDateTweets(tweets.docs.map((tweet) => tweet.data()));
+								return tweetToDate;
+							})
+							.catch((error) => {
+								console.log(error);
+								return error;
+							});
+						tweetData.statistics.comments = tweetsComments;
+						return tweetData;
+					}
 					tweetData.createdAt = tweetData.createdAt.toDate().toString();
-					console.log(tweetData.createdAt);
 					return tweetData;
 				})
 				.catch((error) => {
+					console.log(error);
 					return error;
 				});
-			return tweetData;
+			console.log(tweet);
+			return tweet;
 		},
 	},
 	Mutation: {

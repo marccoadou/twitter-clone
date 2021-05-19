@@ -15,7 +15,7 @@ import { Home } from "./components/Home";
 // import { AdditionalContent } from "./components/RecommendedContent/AdditionalContent";
 // import { Header } from "./components/Navigation/Header";
 import { CreateTweet } from "./components/Tweet/CreateTweet";
-import { TweetIndividual } from "./components/Tweet/TweetIndividual";
+import { TweetThread } from "./components/Tweet/TweetThread";
 import { TweetReply } from "./components/Tweet/TweetReply";
 
 export const App = () => {
@@ -49,7 +49,7 @@ export const App = () => {
 				<Route path="/login" exact component={Login} />
 				<Route path="/signup" exact component={SignUp} />
 				<Route path="/compose/tweet" exact={true} component={CreateTweet} />
-				<Route path="/tweet/:id" exact component={TweetIndividual} />
+				<Route path="/tweet/:id" exact component={TweetThread} />
 				<Route path="/tweet/:id/reply" exact component={TweetReply} />
 				<Route path="/" component={NotFound} />
 			</Switch>

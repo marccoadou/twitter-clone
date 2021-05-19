@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { GET_TWEET } from "../lib/ApolloRequest";
-import { useAppContext } from "../lib/AppContext";
 import { Loader } from "../Spinner";
 import { Tweet } from "./Tweet";
 
@@ -9,9 +8,9 @@ type TweetParam = {
 	id: string;
 };
 
-export const TweetIndividual = () => {
+export const TweetThread = () => {
 	const params = useParams<TweetParam>();
-	const { state } = useAppContext();
+	console.log(params.id);
 	const { data, loading } = useQuery(GET_TWEET, {
 		variables: { id: params?.id },
 	});
@@ -23,7 +22,7 @@ export const TweetIndividual = () => {
 		);
 	}
 	return (
-		<>
+		<div className="tweet-vertical">
 			{data?.tweet && (
 				<Tweet
 					createdAt={data?.tweet.createdAt}
@@ -34,6 +33,20 @@ export const TweetIndividual = () => {
 					userHandle={data?.tweet.userHandle}
 				/>
 			)}
-		</>
+			<div>
+				{data?.tweet.statistics.comments &&
+					data?.tweet.statistics.comments.map((tweet: TweetType, index: number) => (
+						<Tweet
+							createdAt={tweet.createdAt}
+							id={tweet.id}
+							statistics={tweet.statistics}
+							text={tweet.text}
+							user={tweet.user}
+							userHandle={tweet.userHandle}
+							key={index}
+						/>
+					))}
+			</div>
+		</div>
 	);
 };

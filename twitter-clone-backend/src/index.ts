@@ -26,6 +26,7 @@ const typeDefs = gql`
 		user(userHandle: String!): User
 		checkUser(email: String!, password: String!): ValidUser
 		userFeed(following: [String]!): [Tweet]!
+		tweetComments(idList: [String]!): [Tweet]!
 	}
 
 	type Mutation {

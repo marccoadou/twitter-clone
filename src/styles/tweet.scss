@@ -1,3 +1,8 @@
+.tweet-vertical {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
 .tweet-background-touch {
 	// min-width: 100%;
 	height: auto;

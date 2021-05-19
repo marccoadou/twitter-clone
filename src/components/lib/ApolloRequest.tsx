@@ -83,6 +83,21 @@ export const GET_TWEET = gql`
 				likesList
 				retweets
 				commentsList
+				comments {
+					id
+					text
+					userHandle
+					user {
+						username
+					}
+					createdAt
+					statistics {
+						likes
+						likesList
+						retweets
+						commentsList
+					}
+				}
 				commentsNbr
 			}
 		}
