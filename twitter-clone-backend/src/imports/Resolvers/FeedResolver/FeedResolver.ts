@@ -6,7 +6,7 @@ export const userFeed = {
 	Query: {
 		async userFeed(_, args) {
 			try {
-				const following = await exportAdmin
+				const userFeed = await exportAdmin
 					.firestore()
 					.collection("tweets")
 					.where("userHandle", "in", args.following)
@@ -15,14 +15,13 @@ export const userFeed = {
 					.get()
 					.then((tweets) => {
 						const tweetToDate = toDateTweets(tweets.docs.map((tweet) => tweet.data()));
-						console.log(tweetToDate);
 						return tweetToDate;
 					})
-
 					.catch((error) => {
 						return error;
 					});
-				return following;
+				console.log(userFeed);
+				return userFeed;
 			} catch (error) {
 				throw new ApolloError(error);
 			}

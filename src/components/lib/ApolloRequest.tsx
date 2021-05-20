@@ -83,21 +83,6 @@ export const GET_TWEET = gql`
 				likesList
 				retweets
 				commentsList
-				comments {
-					id
-					text
-					userHandle
-					user {
-						username
-					}
-					createdAt
-					statistics {
-						likes
-						likesList
-						retweets
-						commentsList
-					}
-				}
 				commentsNbr
 			}
 		}
@@ -120,9 +105,11 @@ export const ADD_LIKE = gql`
 				likesList
 				comments {
 					id
+					userHandle
 					user {
-						userHandle
+						username
 					}
+					createdAt
 					text
 				}
 				retweets
@@ -148,9 +135,11 @@ export const REMOVE_LIKE = gql`
 				likesList
 				comments {
 					id
+					userHandle
 					user {
 						userHandle
 					}
+					createdAt
 					text
 				}
 				retweets
@@ -261,6 +250,26 @@ export const ADD_COMMENT = gql`
 				retweets
 				commentsList
 				commentsNbr
+			}
+		}
+	}
+`;
+
+export const TWEETS_ID_LIST = gql`
+	query tweetsByIDList($id: String!) {
+		tweetsByIDList(id: $id) {
+			id
+			text
+			createdAt
+			userHandle
+			user {
+				username
+			}
+			statistics {
+				likes
+				likesList
+				commentsNbr
+				retweets
 			}
 		}
 	}

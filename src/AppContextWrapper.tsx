@@ -19,9 +19,9 @@ const client = new ApolloClient({
 			// 	keyFields: [["id", "userHandle", ["id"]]],
 			// 	merge: false,
 			// },
-			Tweet: {
-				keyFields: ["id"],
-			},
+			// Tweet: {
+			// 	keyFields: ["id"],
+			// },
 		},
 	}),
 	link: link,

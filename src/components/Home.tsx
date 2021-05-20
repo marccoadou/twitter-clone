@@ -9,6 +9,7 @@ import { ContextBar } from "./Navigation/ContextBar";
 import { BottomMenu } from "./Navigation/BottomMenu";
 import { CreateTweetButton } from "./Buttons/Tweet/CreateTweetButton";
 import { MobileMenu } from "./Navigation/MobileMenu";
+import { Header } from "./Navigation/Header";
 
 interface Props {}
 export const Home: React.FC<Props> = () => {
@@ -18,14 +19,14 @@ export const Home: React.FC<Props> = () => {
 		// pollInterval: 3000,
 	});
 	const windowSize = useWindowSize();
-	console.log(windowSize);
 	return (
 		<div>
 			{state.sideBar ? <MobileMenu /> : null}
-			<ContextBar />
+			{/* <ContextBar /> */}
+			<Header />
 			{data?.userFeed ? <TweetFeed tweets={data?.userFeed} /> : <Loader />}
 			<CreateTweetButton />
-			<BottomMenu />
+			{/* <BottomMenu /> */}
 		</div>
 	);
 };

@@ -45,9 +45,9 @@ export const App = () => {
 					<Redirect to="/home" />
 				</Route>
 				<PrivateRoute path="/home" exact={true} component={Home} redirectPath="/login" />
-				<PrivateRoute component={Profile} exact={true} path="/:id" redirectPath="/login" />
-				<Route path="/login" exact component={Login} />
 				<Route path="/signup" exact component={SignUp} />
+				<Route path="/login" exact component={Login} />
+				<PrivateRoute component={Profile} exact={true} path="/:id" redirectPath="/login" />
 				<Route path="/compose/tweet" exact={true} component={CreateTweet} />
 				<Route path="/tweet/:id" exact component={TweetThread} />
 				<Route path="/tweet/:id/reply" exact component={TweetReply} />

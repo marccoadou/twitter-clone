@@ -1,8 +1,12 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
+import React from "react";
 import { useParams } from "react-router";
-import { GET_TWEET } from "../lib/ApolloRequest";
+import { TWEETS_ID_LIST } from "../lib/ApolloRequest";
+import { BottomMenu } from "../Navigation/BottomMenu";
+import { ContextBar } from "../Navigation/ContextBar";
 import { Loader } from "../Spinner";
 import { Tweet } from "./Tweet";
+import { TweetIndividual } from "./TweetIndividual";
 
 type TweetParam = {
 	id: string;
@@ -10,8 +14,7 @@ type TweetParam = {
 
 export const TweetThread = () => {
 	const params = useParams<TweetParam>();
-	console.log(params.id);
-	const { data, loading } = useQuery(GET_TWEET, {
+	const { data, loading } = useQuery(TWEETS_ID_LIST, {
 		variables: { id: params?.id },
 	});
 	if (loading) {
@@ -21,32 +24,29 @@ export const TweetThread = () => {
 			</div>
 		);
 	}
+
+	console.log(data);
 	return (
-		<div className="tweet-vertical">
-			{data?.tweet && (
-				<Tweet
-					createdAt={data?.tweet.createdAt}
-					id={data?.tweet.id}
-					statistics={data?.tweet.statistics}
-					text={data?.tweet.text}
-					user={data?.tweet.user}
-					userHandle={data?.tweet.userHandle}
-				/>
-			)}
-			<div>
-				{data?.tweet.statistics.comments &&
-					data?.tweet.statistics.comments.map((tweet: TweetType, index: number) => (
-						<Tweet
-							createdAt={tweet.createdAt}
-							id={tweet.id}
-							statistics={tweet.statistics}
-							text={tweet.text}
-							user={tweet.user}
-							userHandle={tweet.userHandle}
-							key={index}
-						/>
-					))}
+		<>
+			<div className="tweet-vertical">
+				<ContextBar />
+				<TweetIndividual />
+				<div>
+					{data?.tweetsByIDList &&
+						data?.tweetsByIDList.map((tweet: TweetType, index: number) => (
+							<Tweet
+								createdAt={tweet.createdAt}
+								id={tweet.id}
+								statistics={tweet.statistics}
+								text={tweet.text}
+								user={tweet.user}
+								userHandle={tweet.userHandle}
+								key={index}
+							/>
+						))}
+				</div>
+				<BottomMenu />
 			</div>
-		</div>
+		</>
 	);
 };
