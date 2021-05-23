@@ -2,9 +2,8 @@ import React from "react";
 import "../../styles/mobile-menu.scss";
 import { useAppContext } from "../lib/AppContext";
 import { StateUserPicture } from "../Profile/StateUserPicture";
-import { Header } from "./Header";
 import { Link } from "react-router-dom";
-import { Person, CardList, BookmarkCheck, Newspaper } from "react-bootstrap-icons";
+import { Person, CardList, BookmarkCheck } from "react-bootstrap-icons";
 
 interface Props {}
 export const MobileMenu: React.FC<Props> = () => {

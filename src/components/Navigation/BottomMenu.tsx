@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAppContext } from "../lib/AppContext";
 import { House, Envelope, Search, Bell } from "react-bootstrap-icons";
 interface Props {}
 export const BottomMenu: React.FC<Props> = () => {

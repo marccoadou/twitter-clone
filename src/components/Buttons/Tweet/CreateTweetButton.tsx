@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { PencilSquare } from "react-bootstrap-icons";
 
-import { useAppContext } from "../../lib/AppContext";
-
 export const CreateTweetButton = () => {
 	return (
 		<Link to="/compose/tweet">

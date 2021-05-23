@@ -22,11 +22,11 @@ export const Home: React.FC<Props> = () => {
 	return (
 		<div>
 			{state.sideBar ? <MobileMenu /> : null}
-			{/* <ContextBar /> */}
-			<Header />
+			<ContextBar />
+			{/* <Header /> */}
 			{data?.userFeed ? <TweetFeed tweets={data?.userFeed} /> : <Loader />}
 			<CreateTweetButton />
-			{/* <BottomMenu /> */}
+			<BottomMenu />
 		</div>
 	);
 };

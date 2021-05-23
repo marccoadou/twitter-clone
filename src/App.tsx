@@ -37,7 +37,6 @@ export const App = () => {
 			dispatch({ type: "LOGIN" });
 		}
 	}, [data?.user, dispatch, getInfo]);
-
 	return (
 		<Router>
 			<Switch>

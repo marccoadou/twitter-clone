@@ -42,6 +42,7 @@ export const tweetResolvers = {
 				args.id = uniqid();
 				args.createdAt = LocalAdmin.firestore.Timestamp.now();
 				args.statistics = defaultStats;
+				args.statistics.statsID = uniqid();
 				const newTweet = await exportAdmin
 					.firestore()
 					.collection("tweets")

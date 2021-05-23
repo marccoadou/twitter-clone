@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { ToastProvider } from "react-toast-notifications";
 import "./styles/index.scss";
 import React from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, from } from "@apollo/client";
@@ -15,13 +16,9 @@ const client = new ApolloClient({
 	cache: new InMemoryCache({
 		addTypename: true,
 		typePolicies: {
-			// User: {
-			// 	keyFields: [["id", "userHandle", ["id"]]],
-			// 	merge: false,
-			// },
-			// Tweet: {
-			// 	keyFields: ["id"],
-			// },
+			Tweet: {
+				keyFields: ["id"],
+			},
 		},
 	}),
 	link: link,
@@ -41,7 +38,9 @@ function AppContextWrapper() {
 			<ApolloProvider client={client}>
 				<AppContext.Provider value={{ state, dispatch }}>
 					<BrowserRouter>
-						<App />
+						<ToastProvider>
+							<App />
+						</ToastProvider>
 					</BrowserRouter>
 				</AppContext.Provider>
 			</ApolloProvider>

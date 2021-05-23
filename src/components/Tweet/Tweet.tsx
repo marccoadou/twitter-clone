@@ -1,12 +1,15 @@
 import "../../styles/tweet.scss";
-import React from "react";
+import React, { useEffect } from "react";
 import { Media, Image } from "react-bootstrap";
 import DefaultUserIcon from "../../img/default_profile_400x400.png";
 import { LikeButton } from "../Buttons/Tweet/TweetStats/LikeButton";
 import { CommentButton } from "../Buttons/Tweet/TweetStats/CommentButton";
 import { RetweetButton } from "../Buttons/Tweet/TweetStats/RetweetButton";
 import { ShareButton } from "../Buttons/Tweet/TweetStats/ShareButton";
+import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { DELETE_TWEET } from "../lib/ApolloRequest";
+import { useToasts } from "react-toast-notifications";
 
 export const Tweet: React.FunctionComponent<TweetType> = ({
 	id,
@@ -16,6 +19,20 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 	user,
 	createdAt,
 }) => {
+	const { addToast } = useToasts();
+	const [deleteTweet, { data }] = useMutation(DELETE_TWEET, {
+		variables: { id: id },
+	});
+	console.log(data);
+	const handleDeleteTweet = () => {
+		deleteTweet();
+	};
+	useEffect(() => {
+		if (data?.deleteTweet === true) {
+			addToast("Tweet deleted successfully", { appearance: "success", autoDismiss: true });
+		}
+	}, [data]);
+	console.log(`text : ${text} || statistics.likes : ${statistics.likes}`);
 	return (
 		<>
 			<Media className="tweet">
@@ -31,9 +48,9 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 					<div className="tweet-user">
 						<h6>{user?.username}</h6>
 
-						<a href="_" className="more-button">
+						<button className="more-button" onClick={handleDeleteTweet}>
 							<i className="fas fa-ellipsis-h"></i>
-						</a>
+						</button>
 					</div>
 					<div className="tweet-info">
 						<small>
@@ -57,3 +74,6 @@ export const Tweet: React.FunctionComponent<TweetType> = ({
 		</>
 	);
 };
+function addToast(arg0: string, arg1: { appearance: string; autoDismiss: boolean }) {
+	throw new Error("Function not implemented.");
+}

@@ -9,6 +9,7 @@ import { tweetsByIDList } from "./imports/Resolvers/TweetsByIDList";
 import { tweetDef } from "./imports/Types/TweetDef";
 import { UserDef } from "./imports/Types/UserDef";
 import { tweetAddLike } from "./imports/Resolvers/TweetStatsResolvers/TweetAddLike";
+import { deleteTweet } from "./imports/Resolvers/deleteTweet";
 import { ApolloServer, gql } from "apollo-server";
 import * as admin from "firebase-admin";
 import * as merge from "lodash/merge";
@@ -44,6 +45,7 @@ const typeDefs = gql`
 		followUser(userHandle: String!, toFollowUserHandle: String!): Boolean!
 		unfollowUser(userHandle: String!, toFollowUserHandle: String!): Boolean!
 		addComment(text: String!, userHandle: String!, tweetID: String!): Tweet
+		deleteTweet(id: String!): Boolean!
 		# updateTweet(input: TweetInput): Tweet
 	}
 `;
@@ -59,7 +61,8 @@ const server = new ApolloServer({
 		followUser,
 		unfollowUser,
 		userFeed,
-		tweetsByIDList
+		tweetsByIDList,
+		deleteTweet
 	),
 });
 

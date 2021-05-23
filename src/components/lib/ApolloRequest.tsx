@@ -27,6 +27,7 @@ export const GET_USER_INFO = gql`
 					following
 				}
 				statistics {
+					statsID
 					likes
 					likesList
 					comments {
@@ -79,6 +80,7 @@ export const GET_TWEET = gql`
 				userHandle
 			}
 			statistics {
+				statsID
 				likes
 				likesList
 				retweets
@@ -101,17 +103,9 @@ export const ADD_LIKE = gql`
 				userHandle
 			}
 			statistics {
+				statsID
 				likes
 				likesList
-				comments {
-					id
-					userHandle
-					user {
-						username
-					}
-					createdAt
-					text
-				}
 				retweets
 				commentsList
 				commentsNbr
@@ -131,17 +125,9 @@ export const REMOVE_LIKE = gql`
 				userHandle
 			}
 			statistics {
+				statsID
 				likes
 				likesList
-				comments {
-					id
-					userHandle
-					user {
-						userHandle
-					}
-					createdAt
-					text
-				}
 				retweets
 				commentsList
 				commentsNbr
@@ -209,6 +195,7 @@ export const USER_FEED = gql`
 				userHandle
 			}
 			statistics {
+				statsID
 				likes
 				likesList
 				comments {
@@ -238,6 +225,7 @@ export const ADD_COMMENT = gql`
 				username
 			}
 			statistics {
+				statsID
 				likes
 				likesList
 				comments {
@@ -266,11 +254,18 @@ export const TWEETS_ID_LIST = gql`
 				username
 			}
 			statistics {
+				statsID
 				likes
 				likesList
 				commentsNbr
 				retweets
 			}
 		}
+	}
+`;
+
+export const DELETE_TWEET = gql`
+	mutation deleteTweet($id: String!) {
+		deleteTweet(id: $id)
 	}
 `;

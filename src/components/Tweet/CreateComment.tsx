@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { useHistory, useParams } from "react-router";
 import { ADD_COMMENT } from "../lib/ApolloRequest";

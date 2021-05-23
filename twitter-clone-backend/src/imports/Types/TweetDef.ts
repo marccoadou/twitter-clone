@@ -11,6 +11,7 @@ export const tweetDef = gql`
 	}
 
 	type TweetStats {
+		statsID: ID!
 		likes: Int!
 		likesList: [String]
 		retweets: Int!

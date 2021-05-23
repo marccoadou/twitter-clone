@@ -34,6 +34,13 @@ export const LikeButton: React.FC<Props> = ({ id, statistics }) => {
 	const removeLike = () => {
 		removeLikeMutation({
 			variables: { userHandle: state.user.userHandle, id: id },
+			optimisticResponse: {
+				removeLike: {
+					__typename: "TweetStats",
+					id: id,
+					statistics: { likes: statistics.likes - 1 },
+				},
+			},
 		});
 		setUserLiked(false);
 	};
